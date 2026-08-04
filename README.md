@@ -4,30 +4,28 @@ Static source for [commoditymerchant.net](https://commoditymerchant.net).
 
 ## Structure
 
-- `index.html` — homepage (hero, market snapshot, bio/stats, newsletter, guide)
-- `about/index.html` — About page
-- `letters/index.html` — The Merchant's Letter archive
-- `letters/issue-001/`, `letters/002-the-fed-blinked/` — individual letters
-
-All pages are self-contained (inline CSS/JS, Google Fonts only).
+- `index.html` — the redesigned single-page site (home, about, letter archive
+  and guide sections all render client-side from this one bundled file)
+- `prices.json` — daily price snapshot the homepage reads (featured copper +
+  gold/silver/aluminium/brent quotes)
+- `letters/` — full typeset letter pages, linked from the archive cards:
+  `issue-001`, `002-the-fed-blinked`, `003-copper-breaks-14000`, plus the
+  older static archive at `letters/index.html`
+- `about/` — the pre-redesign About page, kept so old inbound links resolve
 
 ## Deployment
 
-The live site is hosted on **Netlify** (this repository is not currently
-connected to it — it was empty, and this source was reconstructed from the
-live site on 2026-08-04 when the guide-launch update was made). To deploy:
-either connect this repo as the Netlify site's source (publish directory:
-repo root, no build command), or drag-and-drop the repo contents in the
-Netlify UI.
+The live site is hosted on **Netlify** and has so far been deployed manually
+(Netlify Drop / drag-and-drop of these files). Connecting the Netlify project
+to this repository (no build command, publish directory `.` — see
+`netlify.toml`) would make every push deploy automatically, including the
+daily price updates below.
 
 ## Daily prices
 
-`api/prices` is a static JSON snapshot read by the homepage ticker
-(served as JSON via `_headers`). It is refreshed each weekday by
-`.github/workflows/update-prices.yml`, which runs `scripts/update-prices.mjs`
-(Yahoo Finance chart API, falling back to gold-api.com and FRED public CSVs)
-and commits the result. For the live site to pick up those updates
-automatically, the Netlify project must be connected to this repository;
-with manual (drag-and-drop) deploys the snapshot only updates when a new
-deploy is uploaded. The ticker falls back to hardcoded values in
-`index.html` if the endpoint is unavailable.
+`.github/workflows/update-prices.yml` runs `scripts/update-prices.mjs` each
+weekday evening: it fetches prices from Yahoo Finance (falling back to
+gold-api.com and FRED public CSVs), writes `prices.json`, and commits the
+result. The live site only picks these updates up automatically if the
+Netlify project is connected to this repo; with drag-and-drop deploys the
+snapshot is only as fresh as the last upload.
