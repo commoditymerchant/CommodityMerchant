@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: dark only; background: #050708;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark only">
+<meta name="theme-color" content="#050708">
+<meta name="supported-color-schemes" content="dark">
+<meta name="description" content="Exclusive insights into global commodity markets. Energy, base and precious metals — from over fifteen years on the trading desk.">
+<title>The Commodity Merchant — Global Commodity Markets From The Inside</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  color-scheme: dark only;
+  --bg-base: #050708;
+  --bg-elev-1: #0A0D0E;
+  --bg-elev-2: #0F1314;
+  --bg-card: #10161A;
+  --bg-card-hover: #151C20;
+  --border-subtle: rgba(212, 178, 106, 0.1);
+  --border-default: rgba(212, 178, 106, 0.22);
+  --border-strong: rgba(212, 178, 106, 0.4);
+  --gold: #D4B26A;
+  --gold-bright: #F0D89C;
+  --gold-deep: #9C7F44;
+  --silver: #D0D5DC;
+  --copper: #D08B4E;
+  --iridescent: linear-gradient(135deg, #D4B26A 0%, #C8CDD4 25%, #D08B4E 50%, #D4B26A 75%, #F0D89C 100%);
+  --text-primary: #FFFFFF;
+  --text-body: #E8E8EC;
+  --text-secondary: #C8CCD0;
+  --text-tertiary: #8B9098;
+  --text-muted: #5A6068;
+  --accent-up: #4ADE80;
+  --accent-down: #F87171;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html, body {
+  background: #050708 !important;
+  color-scheme: dark only;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+  html, body { background: #050708 !important; }
+}
+
+/* ═══ BACKGROUND LAYERS ═══ */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.70 0 0 0 0 0.42 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 3D Perspective Grid Floor - futuristic element */
+.bg-floor {
+  position: fixed;
+  bottom: -50vh;
+  left: -50vw;
+  right: -50vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(rgba(212,178,106,0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,178,106,0.2) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(400px) rotateX(70deg);
+  transform-origin: center top;
+  mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+  animation: floorPulse 8s ease-in-out infinite;
+}
+
+@keyframes floorPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+.bg-glow {
+  position: fixed;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  filter: blur(200px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-glow-1 { top: -300px; right: -300px; background: #D4B26A; opacity: 0.12; animation: drift1 25s ease-in-out infinite; }
+.bg-glow-2 { bottom: 10%; left: -400px; background: #D08B4E; opacity: 0.08; animation: drift2 30s ease-in-out infinite; }
+.bg-glow-3 { top: 40%; right: 15%; background: #C8CDD4; opacity: 0.05; animation: drift3 35s ease-in-out infinite; }
+
+@keyframes drift1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-60px, 80px); } }
+@keyframes drift2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(80px, -40px); } }
+@keyframes drift3 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-80px, -60px); } }
+
+/* ═══ LAYOUT ═══ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+section {
+  padding: 120px 0;
+  position: relative;
+  background: var(--bg-base);
+}
+
+/* ═══ TYPOGRAPHY ═══ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+  font-variation-settings: "opsz" 144;
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  position: relative;
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 640px;
+  font-weight: 400;
+}
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: all 0.4s ease;
+  background: rgba(5, 7, 8, 0.5);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+nav.scrolled {
+  background: rgba(5, 7, 8, 0.92);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 14px 0;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+
+.brand-mark { display: flex; gap: 2px; perspective: 100px; }
+
+.brand-mark .diamond {
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
+  border: 1.5px solid;
+  transition: transform 0.4s ease;
+}
+
+.brand-mark .diamond:nth-child(1) { border-color: var(--gold); }
+.brand-mark .diamond:nth-child(2) { border-color: var(--silver); margin-left: -5px; }
+.brand-mark .diamond:nth-child(3) { border-color: var(--copper); margin-left: -5px; }
+
+.nav-brand:hover .brand-mark .diamond { transform: rotate(45deg) scale(1.1); }
+
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.nav-links { display: flex; gap: 36px; align-items: center; list-style: none; }
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.nav-links a:not(.nav-cta):hover { color: var(--text-primary); }
+.nav-links a:not(.nav-cta):hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 10px 22px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  color: var(--gold) !important;
+  font-weight: 600;
+  transition: all 0.3s;
+  background: rgba(212, 178, 106, 0.08);
+}
+
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--bg-base) !important;
+  box-shadow: 0 0 24px rgba(212, 178, 106, 0.4);
+}
+
+/* Hamburger toggle — hidden on desktop, shown on mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--text-primary);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ═══ HERO ═══ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 160px 0 80px;
+  background: var(--bg-base);
+  position: relative;
+}
+
+.hero-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-text { max-width: 640px; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border: 1px solid var(--border-default);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  background: var(--bg-card);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--accent-up);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-up);
+  animation: pulse 2s infinite;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+  color: var(--text-primary);
+  font-variation-settings: "opsz" 144;
+  animation: fadeUp 0.9s ease 0.15s forwards;
+  opacity: 0;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(135deg, #D4B26A 0%, #F0D89C 50%, #D4B26A 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-sub {
+  font-size: 19px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 48px;
+  max-width: 540px;
+  animation: fadeUp 0.9s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  animation: fadeUp 0.9s ease 0.45s forwards;
+  opacity: 0;
+}
+
+/* 3D Diamond Composition */
+.hero-visual {
+  position: relative;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  animation: fadeUp 1s ease 0.6s forwards;
+  opacity: 0;
+}
+
+.diamond-stage {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  transform-style: preserve-3d;
+  animation: stageRotate 30s linear infinite;
+}
+
+@keyframes stageRotate {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.diamond-3d {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  transform-style: preserve-3d;
+}
+
+.diamond-face {
+  position: absolute;
+  inset: 0;
+  border: 2px solid;
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+
+.diamond-3d.gold {
+  margin-top: -90px;
+  margin-left: -150px;
+  transform: translateZ(40px);
+}
+.diamond-3d.gold .diamond-face {
+  border-color: var(--gold);
+  box-shadow: 0 0 80px rgba(212, 178, 106, 0.4), inset 0 0 40px rgba(212, 178, 106, 0.08);
+}
+.diamond-3d.gold .diamond-face::before {
+  content: '';
+  position: absolute;
+  inset: 10%;
+  border: 1px solid rgba(212, 178, 106, 0.3);
+}
+
+.diamond-3d.silver {
+  margin-top: -90px;
+  margin-left: -90px;
+  transform: translateZ(0);
+}
+.diamond-3d.silver .diamond-face {
+  border-color: var(--silver);
+  border-width: 1.5px;
+  opacity: 0.9;
+  box-shadow: 0 0 40px rgba(200, 205, 212, 0.2);
+}
+
+.diamond-3d.copper {
+  margin-top: -90px;
+  margin-left: -30px;
+  transform: translateZ(-40px);
+}
+.diamond-3d.copper .diamond-face {
+  border-color: var(--copper);
+  border-width: 1.5px;
+  opacity: 0.85;
+  box-shadow: 0 0 60px rgba(208, 139, 78, 0.25);
+}
+
+.diamond-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #F0D89C, var(--gold));
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--gold-bright), 0 0 60px var(--gold), 0 0 90px rgba(212, 178, 106, 0.4);
+  animation: corePulse 3s ease-in-out infinite;
+}
+
+@keyframes corePulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 30px var(--gold-bright), 0 0 60px var(--gold); }
+  50% { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 50px var(--gold-bright), 0 0 100px var(--gold); }
+}
+
+/* Orbit ring */
+.orbit-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 380px;
+  height: 380px;
+  margin-top: -190px;
+  margin-left: -190px;
+  border: 1px solid rgba(212, 178, 106, 0.15);
+  border-radius: 50%;
+  animation: orbitSpin 40s linear infinite reverse;
+}
+
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px var(--gold);
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hero-labels { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+
+.hero-label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  animation: labelFloat 6s ease-in-out infinite;
+}
+
+.hero-label.precious { top: 40px; left: 10px; color: var(--gold); border-color: rgba(212,178,106,0.3); animation-delay: 0s; }
+.hero-label.derivatives { top: 40px; right: 10px; color: var(--silver); border-color: rgba(200,205,212,0.2); animation-delay: 4s; }
+.hero-label.base { bottom: 60px; left: 10px; color: var(--copper); border-color: rgba(208,139,78,0.3); animation-delay: 2s; }
+.hero-label.energy { bottom: 60px; right: 10px; color: var(--text-secondary); border-color: rgba(200,205,212,0.18); animation-delay: 6s; }
+
+@keyframes labelFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ═══ BUTTONS ═══ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+  color: #000000 !important;
+  border-color: var(--gold);
+  box-shadow: 0 4px 24px rgba(212, 178, 106, 0.2);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: left 0.6s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(212, 178, 106, 0.45);
+}
+
+.btn-primary:hover::before { left: 100%; }
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.btn-arrow { transition: transform 0.3s; }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* ═══ TICKER (Custom, 3D style) ═══ */
+.ticker-section {
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 32px 0;
+  background: var(--bg-elev-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ticker-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(212, 178, 106, 0.05), transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(208, 139, 78, 0.04), transparent 50%);
+  pointer-events: none;
+}
+
+.ticker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 32px;
+}
+
+.ticker-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.ticker-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-up);
+  font-weight: 600;
+}
+
+.ticker-live-dot {
+  width: 6px; height: 6px;
+  background: var(--accent-up);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 10px var(--accent-up);
+}
+
+.ticker-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.ticker-card {
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.ticker-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0.7;
+}
+
+.ticker-card.gold::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.ticker-card.silver::before { background: linear-gradient(90deg, transparent, var(--silver), transparent); }
+.ticker-card.copper::before { background: linear-gradient(90deg, transparent, var(--copper), transparent); }
+.ticker-card.neutral::before { background: linear-gradient(90deg, transparent, var(--text-tertiary), transparent); }
+
+.ticker-card:hover {
+  border-color: var(--border-default);
+  transform: translateY(-2px);
+  background: var(--bg-card-hover);
+}
+
+.ticker-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.ticker-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.ticker-card.gold .ticker-dot { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.ticker-card.silver .ticker-dot { background: var(--silver); box-shadow: 0 0 6px var(--silver); }
+.ticker-card.copper .ticker-dot { background: var(--copper); box-shadow: 0 0 8px var(--copper); }
+.ticker-card.neutral .ticker-dot { background: var(--text-tertiary); }
+
+.ticker-price {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.ticker-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.ticker-change.up { color: var(--accent-up); background: rgba(74, 222, 128, 0.1); }
+.ticker-change.down { color: var(--accent-down); background: rgba(248, 113, 113, 0.1); }
+
+.ticker-timestamp {
+  max-width: 1200px;
+  margin: 16px auto 0;
+  padding: 0 32px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+/* ═══ STATS STRIP ═══ */
+.stats-section {
+  padding: 100px 0;
+  background: var(--bg-base);
+}
+
+.stats-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.stats-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.stats-header .eyebrow { margin-bottom: 20px; }
+
+.stats-grid-main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.stat-card-main {
+  padding: 48px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.stat-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.8s;
+}
+
+.stat-card-main:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+
+.stat-card-main:hover::before { transform: translateX(100%); }
+
+.stat-num-big {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--gold-bright);
+  margin-bottom: 12px;
+  letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144;
+}
+
+.stat-label-main {
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.stats-cta {
+  margin-top: 48px;
+  text-align: center;
+}
+
+/* ═══ NEWSLETTER ═══ */
+.newsletter-section { position: relative; background: var(--bg-base); }
+
+.newsletter-card {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 80px 60px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--silver), var(--copper));
+}
+
+.newsletter-card::after {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: var(--gold);
+  opacity: 0.06;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.newsletter-card > * { position: relative; z-index: 2; }
+
+.newsletter-diamonds-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.newsletter-diamonds {
+  display: inline-flex;
+  gap: 3px;
+  animation: gentleRotate 8s ease-in-out infinite;
+}
+
+@keyframes gentleRotate {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.newsletter-diamonds .diamond {
+  width: 20px; height: 20px;
+  transform: rotate(45deg);
+  border: 2px solid;
+}
+
+.newsletter-diamonds .diamond:nth-child(1) { border-color: var(--gold); }
+.newsletter-diamonds .diamond:nth-child(2) { border-color: var(--silver); margin-left: -5px; }
+.newsletter-diamonds .diamond:nth-child(3) { border-color: var(--copper); margin-left: -5px; }
+
+.newsletter-card .section-title { margin-bottom: 20px; }
+.newsletter-card .lead { margin: 0 auto 36px; color: var(--text-body); }
+
+.newsletter-tier-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(212, 178, 106, 0.08);
+  border: 1px solid rgba(212, 178, 106, 0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.newsletter-features {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.newsletter-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.newsletter-feature .check { color: var(--gold); font-size: 14px; font-weight: 700; }
+
+/* ═══ GUIDE ═══ */
+.guide-section { position: relative; background: var(--bg-base); }
+
+.guide-card {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 80px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--silver), var(--copper));
+}
+
+.guide-card::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: var(--gold);
+  opacity: 0.06;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+.guide-card > * { position: relative; z-index: 2; }
+
+.guide-visual { position: relative; perspective: 1400px; }
+
+.guide-book {
+  position: relative;
+  width: 280px;
+  height: 370px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #0A0E0D 0%, #1A2422 100%);
+  border: 1px solid rgba(212,178,106,0.3);
+  border-radius: 4px 10px 10px 4px;
+  box-shadow: 
+    -3px 0 0 rgba(212,178,106,0.15),
+    -6px 0 0 rgba(0,0,0,0.3),
+    20px 20px 60px rgba(0,0,0,0.7), 
+    inset -3px 0 12px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 32px;
+  transform: rotateY(-18deg) rotateX(8deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.guide-book::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(212, 178, 106, 0.12);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.guide-book:hover { transform: rotateY(-8deg) rotateX(3deg); }
+
+.guide-book-diamonds { display: flex; gap: 3px; margin-bottom: 28px; }
+
+.guide-book-diamonds .diamond {
+  width: 16px; height: 16px;
+  transform: rotate(45deg);
+  border: 1.5px solid;
+}
+
+.guide-book-diamonds .diamond:nth-child(1) { border-color: var(--gold); }
+.guide-book-diamonds .diamond:nth-child(2) { border-color: var(--silver); margin-left: -4px; }
+.guide-book-diamonds .diamond:nth-child(3) { border-color: var(--copper); margin-left: -4px; }
+
+.guide-book-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.guide-book-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144;
+}
+
+.guide-book-sub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 18px;
+  font-weight: 500;
+}
+
+.guide-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-up);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.guide-status-dot {
+  width: 6px; height: 6px;
+  background: var(--accent-up);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 10px var(--accent-up);
+}
+
+.guide-price-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(212, 178, 106, 0.08);
+  border: 1px solid rgba(212, 178, 106, 0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.guide-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.guide-inside-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 44px;
+  font-weight: 600;
+}
+
+.guide-features { list-style: none; margin: 10px 0 0; }
+
+.guide-features li {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+  padding: 14px 0;
+  font-size: 15.5px;
+  color: var(--text-body);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.guide-features li:last-child { border-bottom: none; }
+
+.guide-features .feature-icon {
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  margin-top: 2px;
+  font-size: 13px;
+  min-width: 22px;
+}
+
+.guide-card p {
+  color: var(--text-body);
+  margin-bottom: 20px;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* ═══ REVEAL ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-d1 { transition-delay: 0.12s; }
+.reveal-d2 { transition-delay: 0.24s; }
+.reveal-d3 { transition-delay: 0.36s; }
+.reveal-d4 { transition-delay: 0.48s; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+/* ═══ FOOTER ═══ */
+footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 80px 0 40px;
+  background: var(--bg-base);
+  position: relative;
+  z-index: 2;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+
+.footer-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 340px;
+  line-height: 1.7;
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 14px; }
+
+.footer-links a {
+  color: var(--text-body);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 1px;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-weight: 500;
+}
+
+.footer-disclaimer {
+  max-width: 900px;
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  section { padding: 80px 0; }
+  .stats-section { padding: 60px 0; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px 20px;
+    background: rgba(5, 7, 8, 0.97);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--border-subtle);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links li a:not(.nav-cta) {
+    display: block;
+    padding: 15px 4px;
+    font-size: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .nav-cta {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    padding: 13px 22px;
+    font-size: 15px;
+  }
+  .hero-container { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { height: 380px; }
+  .diamond-stage { width: 320px; height: 320px; }
+  .diamond-3d { width: 140px; height: 140px; }
+  .diamond-3d.gold { margin-top: -70px; margin-left: -120px; }
+  .diamond-3d.silver { margin-top: -70px; margin-left: -70px; }
+  .diamond-3d.copper { margin-top: -70px; margin-left: -20px; }
+  .orbit-ring { width: 280px; height: 280px; margin-top: -140px; margin-left: -140px; }
+  .ticker-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .ticker-grid > :nth-child(5) { grid-column: 1 / -1; }
+  .stats-grid-main { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .stat-card-main { padding: 32px 24px; }
+  .stat-num-big { font-size: 56px; }
+  .guide-card { grid-template-columns: 1fr; gap: 48px; padding: 48px 28px; text-align: center; }
+  .guide-visual { transform: scale(0.85); }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .newsletter-card { padding: 48px 28px; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn { justify-content: center; width: 100%; }
+  .guide-actions { flex-direction: column; width: 100%; }
+  .guide-actions .btn { justify-content: center; width: 100%; }
+  .container { padding: 0 24px; }
+  .hero-label { font-size: 9px; padding: 3px 8px; }
+  .guide-features li { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-noise"></div>
+<div class="bg-floor"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+<div class="bg-glow bg-glow-3"></div>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a class='nav-brand' href='/'>
+      <div class="brand-mark">
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+      </div>
+      <span class="nav-name">The Commodity Merchant</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href='/about'>About</a></li>
+      <li><a href="/letters">Newsletter</a></li>
+      <li><a href="#guide">Guide</a></li>
+      <li><a href="https://commoditymerchant.substack.com" class="nav-cta" target="_blank">Subscribe</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          EST. 2011 · LIVE FROM THE DESK
+        </div>
+        <h1>
+          Global commodity<br>
+          markets &mdash; <em>from the inside</em>.
+        </h1>
+        <p class="hero-sub">
+          Market intelligence from over fifteen years across international trading desks. Energy, base and precious metals &mdash; for investors, traders, and the next generation.
+        </p>
+        <div class="hero-actions">
+          <a href="https://commoditymerchant.substack.com" class="btn btn-primary" target="_blank">
+            Subscribe to The Merchant's Letter
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a class='btn btn-secondary' href='/about'>
+            About The Merchant
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="orbit-ring"></div>
+        <div class="hero-labels">
+          <span class="hero-label precious">Precious Metals</span>
+          <span class="hero-label base">Base Metals</span>
+          <span class="hero-label derivatives">Derivatives</span>
+          <span class="hero-label energy">Energy</span>
+        </div>
+        <div class="diamond-stage" id="diamondStage">
+          <div class="diamond-3d gold"><div class="diamond-face"></div></div>
+          <div class="diamond-3d silver"><div class="diamond-face"></div></div>
+          <div class="diamond-3d copper"><div class="diamond-face"></div></div>
+          <div class="diamond-core"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE TICKER -->
+<div class="ticker-section">
+  <div class="ticker-header">
+    <div class="ticker-title">Market Snapshot · End of Day</div>
+    <div class="ticker-title ticker-live">
+      <span class="ticker-live-dot"></span>
+      LIVE
+    </div>
+  </div>
+  <div class="ticker-grid" id="tickerGrid">
+    <div class="ticker-card gold">
+      <div class="ticker-name"><span class="ticker-dot"></span>Gold / oz</div>
+      <div class="ticker-price" data-symbol="GOLD">$4,785.40</div>
+      <div class="ticker-change up" data-change="GOLD">▲ +1.24%</div>
+    </div>
+    <div class="ticker-card silver">
+      <div class="ticker-name"><span class="ticker-dot"></span>Silver / oz</div>
+      <div class="ticker-price" data-symbol="SILVER">$78.40</div>
+      <div class="ticker-change down" data-change="SILVER">▼ -2.83%</div>
+    </div>
+    <div class="ticker-card copper">
+      <div class="ticker-name"><span class="ticker-dot"></span>Copper / tonne</div>
+      <div class="ticker-price" data-symbol="COPPER">$13,392</div>
+      <div class="ticker-change up" data-change="COPPER">▲ +3.12%</div>
+    </div>
+    <div class="ticker-card neutral">
+      <div class="ticker-name"><span class="ticker-dot"></span>Aluminium / tonne</div>
+      <div class="ticker-price" data-symbol="ALUMINIUM">$2,485</div>
+      <div class="ticker-change up" data-change="ALUMINIUM">▲ +0.84%</div>
+    </div>
+    <div class="ticker-card neutral">
+      <div class="ticker-name"><span class="ticker-dot"></span>Brent / bbl</div>
+      <div class="ticker-price" data-symbol="BRENT">$72.60</div>
+      <div class="ticker-change down" data-change="BRENT">▼ -3.53%</div>
+    </div>
+  </div>
+  <div class="ticker-timestamp" id="tickerTimestamp">LAST UPDATED · 19 APRIL 2026 · 17:30 GMT</div>
+</div>
+
+<!-- STATS STRIP -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stats-header">
+      <span class="eyebrow reveal" style="margin: 0 auto;">The Merchant</span>
+      <h2 class="section-title reveal reveal-d1" style="max-width: 820px; margin: 0 auto 32px;">
+        Fifteen years. Seven countries.<br>
+        <em>Twenty commodities.</em>
+      </h2>
+      <p class="lead reveal reveal-d2" style="margin: 0 auto;">
+        A senior physical commodity trader managing a multi-billion dollar book across base and precious metals on international trading desks.
+      </p>
+    </div>
+    <div class="stats-grid-main">
+      <div class="stat-card-main reveal">
+        <div class="stat-num-big">15+</div>
+        <div class="stat-label-main">Years on the<br>trading desk</div>
+      </div>
+      <div class="stat-card-main reveal reveal-d1">
+        <div class="stat-num-big">20+</div>
+        <div class="stat-label-main">Physical commodities<br>traded</div>
+      </div>
+      <div class="stat-card-main reveal reveal-d2">
+        <div class="stat-num-big">7</div>
+        <div class="stat-label-main">Countries lived<br>&amp; worked in</div>
+      </div>
+      <div class="stat-card-main reveal reveal-d3">
+        <div class="stat-num-big">$B+</div>
+        <div class="stat-label-main">Book under<br>management</div>
+      </div>
+    </div>
+    <div class="stats-cta reveal reveal-d4">
+      <a class='btn btn-secondary' href='/about'>
+        Read the full biography
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter" class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-card reveal">
+      <div class="newsletter-diamonds-wrapper">
+        <div class="newsletter-diamonds">
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+        </div>
+      </div>
+      <span class="eyebrow" style="padding: 0; display: inline-flex;">The Merchant's Letter</span>
+      <h2 class="section-title">
+        Weekly intelligence<br>
+        from <em>the desk</em>.
+      </h2>
+      <p class="lead">
+        A weekly letter from inside the trade. How the industry actually works, what the desks are talking about, and the connections you don't read in the FT. For investors and traders who want to understand commodity markets &mdash; not just watch them move.
+      </p>
+      <div class="newsletter-tier-note">
+        <span>FREE TO SUBSCRIBE · PREMIUM TIER LAUNCHING LATER</span>
+      </div>
+      <div class="newsletter-features">
+        <div class="newsletter-feature"><span class="check">✓</span> Free to subscribe</div>
+        <div class="newsletter-feature"><span class="check">✓</span> Weekly delivery</div>
+        <div class="newsletter-feature"><span class="check">✓</span> No spam</div>
+        <div class="newsletter-feature"><span class="check">✓</span> Premium tier coming</div>
+      </div>
+      <a href="https://commoditymerchant.substack.com" class="btn btn-primary" target="_blank">
+        Subscribe to the newsletter
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section id="guide" class="guide-section">
+  <div class="container">
+    <span class="eyebrow reveal">The Merchant's Guide · Digital Product</span>
+    <div class="guide-card reveal reveal-d1">
+      <div class="guide-visual">
+        <div class="guide-book">
+          <div class="guide-book-diamonds">
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+          </div>
+          <div class="guide-book-label">THE MERCHANT'S GUIDE</div>
+          <div class="guide-book-title">The Physical<br>Trading<br>Starter Guide</div>
+          <div class="guide-book-sub">First Edition</div>
+        </div>
+      </div>
+      <div>
+        <div class="guide-status">
+          <span class="guide-status-dot"></span>
+          OUT NOW &mdash; FIRST EDITION
+        </div>
+        <h2 class="section-title" style="font-size: clamp(32px, 4vw, 48px);">
+          The Physical Trading <em>Starter Guide</em>.
+        </h2>
+        <p>
+          How real commodities actually get bought, moved and paid for. Ten chapters in plain English, a 60-term glossary, five diagrams, and three printable deal checklists &mdash; written from fifteen-plus years on trading desks.
+        </p>
+        <div class="guide-price-note">
+          <span>$29 launch week &middot; then $39 &middot; 30-day refund, no questions</span>
+        </div>
+        <div class="guide-actions">
+          <a href="https://merchantmind5.gumroad.com/l/starter-guide" class="btn btn-primary" target="_blank" rel="noopener">
+            Get the guide &mdash; $29
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="https://merchantmind5.gumroad.com/l/starter-sample-guide" class="btn btn-secondary" target="_blank" rel="noopener">
+            Read two chapters free
+          </a>
+        </div>
+        <div class="guide-inside-heading">Inside the guide</div>
+        <ul class="guide-features">
+          <li><span class="feature-icon">01</span> How physical commodity markets actually work</li>
+          <li><span class="feature-icon">02</span> Structuring deals, contracts, and financing</li>
+          <li><span class="feature-icon">03</span> Managing freight, logistics, and documentation</li>
+          <li><span class="feature-icon">04</span> Counterparty, country, and credit risk</li>
+          <li><span class="feature-icon">05</span> Hedging, derivatives, and P&amp;L discipline</li>
+          <li><span class="feature-icon">06</span> Sanctions, compliance, and the grey zones</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="brand-mark">
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+          </div>
+          <span class="nav-name">The Commodity Merchant</span>
+        </div>
+        <p class="footer-desc">
+          Independent commentary on the physical commodity trade. Energy, base and precious metals — from over fifteen years on the trading desk.
+        </p>
+      </div>
+      <div>
+        <div class="footer-heading">Explore</div>
+        <ul class="footer-links">
+          <li><a href='/about'>About</a></li>
+          <li><a href="/letters">Newsletter</a></li>
+          <li><a href="#guide">Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://www.instagram.com/commoditymerchant/" target="_blank">Instagram</a></li>
+          <li><a href="https://x.com/commoditymch" target="_blank">X / Twitter</a></li>
+          <li><a href="https://www.tiktok.com/@commoditymerchant" target="_blank">TikTok</a></li>
+          <li><a href="https://commoditymerchant.substack.com" target="_blank">Substack</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:info@commoditymerchant.net">info@commoditymerchant.net</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 THE COMMODITY MERCHANT · EST. 2011</span>
+      <span>COMMODITYMERCHANT.NET</span>
+    </div>
+    <div class="footer-disclaimer">
+      The Commodity Merchant publishes commentary and educational content. Nothing on this site constitutes legal, financial, tax, or investment advice. Market prices shown are indicative only — always verify with authoritative sources before making decisions.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile menu toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navLinks) {
+  const setMenu = (open) => {
+    navLinks.classList.toggle('open', open);
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMenu(!navLinks.classList.contains('open'));
+  });
+  // Close when a link is tapped, on outside click, or on Escape.
+  // The close is deferred so hiding the menu (display:none) doesn't cancel the
+  // link's own navigation — a known iOS Safari quirk when the tapped element is
+  // hidden synchronously inside its click handler.
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    setTimeout(() => setMenu(false), 0);
+  }));
+  document.addEventListener('click', (e) => {
+    if (navLinks.classList.contains('open') && !nav.contains(e.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+}
+
+// Smooth scroll for same-page anchors
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// 3D parallax on diamond stage (desktop only)
+const stage = document.getElementById('diamondStage');
+if (stage && window.matchMedia('(min-width: 900px)').matches) {
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  document.addEventListener('mousemove', (e) => {
+    targetY = (e.clientX / window.innerWidth - 0.5) * 30;
+    targetX = -(e.clientY / window.innerHeight - 0.5) * 20;
+  });
+  function animateStage() {
+    currentX += (targetX - currentX) * 0.05;
+    currentY += (targetY - currentY) * 0.05;
+    if (stage) {
+      stage.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+    }
+    requestAnimationFrame(animateStage);
+  }
+  animateStage();
+}
+</script>
+
+<script>
+// Live ticker — fetches daily-refreshed prices from /api/prices.
+// On any failure, the hardcoded values in the DOM are left in place.
+(function () {
+  var KEYS = { GOLD: 'gold', SILVER: 'silver', COPPER: 'copper', ALUMINIUM: 'aluminium', BRENT: 'brent' };
+
+  var FORMATTERS = {
+    GOLD:      function (p) { return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
+    SILVER:    function (p) { return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
+    COPPER:    function (p) { return '$' + Math.round(p).toLocaleString('en-US'); },
+    ALUMINIUM: function (p) { return '$' + Math.round(p).toLocaleString('en-US'); },
+    BRENT:     function (p) { return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  };
+
+  var MONTHS = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+
+  function formatChange(c) {
+    var arrow = c >= 0 ? '\u25B2' : '\u25BC';
+    var sign = c >= 0 ? '+' : '';
+    return arrow + ' ' + sign + c.toFixed(2) + '%';
+  }
+
+  function formatTimestamp(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return null;
+    var hh = String(d.getUTCHours()).padStart(2, '0');
+    var mm = String(d.getUTCMinutes()).padStart(2, '0');
+    return 'LAST UPDATED \u00B7 ' + d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear() + ' \u00B7 ' + hh + ':' + mm + ' GMT';
+  }
+
+  function applyEntry(symbol, entry) {
+    if (!entry || typeof entry.price !== 'number' || typeof entry.change !== 'number') return;
+    var priceEl = document.querySelector('[data-symbol="' + symbol + '"]');
+    var changeEl = document.querySelector('[data-change="' + symbol + '"]');
+    if (!priceEl || !changeEl) return;
+    priceEl.textContent = FORMATTERS[symbol](entry.price);
+    changeEl.textContent = formatChange(entry.change);
+    changeEl.classList.remove('up', 'down');
+    changeEl.classList.add(entry.change >= 0 ? 'up' : 'down');
+  }
+
+  var loaded = false;   // becomes true once we've applied a live payload at least once
+  var inFlight = false; // guards against overlapping fetches
+
+  function fetchOnce() {
+    return fetch('/api/prices', { cache: 'no-cache' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        Object.keys(KEYS).forEach(function (sym) { applyEntry(sym, data[KEYS[sym]]); });
+        var tsEl = document.getElementById('tickerTimestamp');
+        if (tsEl && data.updatedAt) {
+          var formatted = formatTimestamp(data.updatedAt);
+          if (formatted) tsEl.textContent = formatted;
+        }
+        loaded = true;
+      });
+  }
+
+  // Fetch with a few retries and exponential backoff, so a single dropped
+  // request on a flaky mobile connection doesn't strand the hardcoded values.
+  function updateTicker(attempt) {
+    if (inFlight) return;
+    attempt = attempt || 0;
+    inFlight = true;
+    fetchOnce()
+      .then(function () { inFlight = false; })
+      .catch(function (err) {
+        inFlight = false;
+        if (attempt < 3) {
+          var delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+          setTimeout(function () { updateTicker(attempt + 1); }, delay);
+        } else {
+          console.warn('[ticker] live price fetch failed, keeping hardcoded values:', err && err.message ? err.message : err);
+        }
+      });
+  }
+
+  // Re-fetch when the phone wakes / tab regains focus, when connectivity
+  // returns, and periodically as a safety net for long-lived tabs.
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') updateTicker();
+  });
+  window.addEventListener('online', function () { updateTicker(); });
+  window.addEventListener('focus', function () { if (!loaded) updateTicker(); });
+  setInterval(function () { updateTicker(); }, 5 * 60 * 1000); // every 5 min
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { updateTicker(); });
+  } else {
+    updateTicker();
+  }
+})();
+</script>
+
+</body>
+</html>

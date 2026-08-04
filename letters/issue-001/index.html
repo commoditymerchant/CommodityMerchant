@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Merchant's Letter · Issue 001</title>
+<meta name="description" content="One headline, three reactions — oil, gold, and copper diverge as the Gulf calms. Energy and metals, explained from inside the trade.">
+<link rel="canonical" href="https://commoditymerchant.net/letters/issue-001">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Merchant's Letter · Issue 001">
+<meta property="og:description" content="One headline, three reactions — oil, gold, and copper diverge as the Gulf calms. Energy and metals, explained from inside the trade.">
+<meta property="og:url" content="https://commoditymerchant.net/letters/issue-001">
+<meta property="og:image" content="https://commoditymerchant.net/letters/issue-001/og.png">
+<meta property="og:site_name" content="The Commodity Merchant">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Merchant's Letter · Issue 001">
+<meta name="twitter:description" content="One headline, three reactions — oil, gold, and copper diverge as the Gulf calms.">
+<meta name="twitter:image" content="https://commoditymerchant.net/letters/issue-001/og.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#0A0807;
+    --panel:#0E0B09;
+    --gold:#C8912F;
+    --gold-bright:#E0AE4A;
+    --copper:#B85C2C;
+    --white:#F4F1EA;
+    --body:#CFC8BA;
+    --muted:#8A8275;
+    --line:rgba(200,145,47,.18);
+    --grid:rgba(200,145,47,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--body);
+    font-family:'Inter',sans-serif;font-size:18px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:48px 48px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px 100px;}
+
+  /* ---- Masthead ---- */
+  header{text-align:center;padding:80px 0 50px;position:relative;}
+  header::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 25%,rgba(200,145,47,.13),transparent 70%);pointer-events:none;}
+  .logo{position:relative;width:200px;height:104px;margin:0 auto 30px;z-index:2;}
+  .logo i{position:absolute;top:50%;left:50%;width:84px;height:84px;transform:translate(-50%,-50%) rotate(45deg);border:1.4px solid;}
+  .logo i.l{margin-left:-50px;border-color:var(--gold);}
+  .logo i.c{border-color:var(--white);width:92px;height:92px;}
+  .logo i.r{margin-left:50px;border-color:var(--copper);}
+  .logo .dot{position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;background:var(--gold-bright);transform:translate(-50%,-50%);box-shadow:0 0 12px 3px rgba(224,174,74,.7);}
+
+  .kicker{position:relative;z-index:2;font-size:13px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:14px;}
+  .title{position:relative;z-index:2;font-family:'Cormorant',serif;font-weight:600;font-size:60px;line-height:1;color:var(--white);letter-spacing:.01em;}
+  .issue{position:relative;z-index:2;margin-top:18px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .dek{position:relative;z-index:2;font-family:'Cormorant',serif;font-style:italic;font-size:23px;color:var(--gold-bright);margin-top:22px;}
+
+  .div{display:flex;align-items:center;justify-content:center;gap:16px;margin:46px 0;}
+  .div .ln{height:1px;width:90px;background:var(--line);}
+  .div .dm{width:9px;height:9px;transform:rotate(45deg);border:1.2px solid var(--gold);}
+
+  /* ---- Sections ---- */
+  h2{font-family:'Cormorant',serif;font-weight:600;font-size:36px;line-height:1.12;color:var(--white);margin:0 0 22px;letter-spacing:.005em;}
+  h3{font-family:'Inter';font-weight:600;font-size:19px;color:var(--gold-bright);margin:32px 0 10px;letter-spacing:.01em;}
+  p{margin:0 0 22px;}
+  strong{color:var(--white);font-weight:600;}
+  em{color:var(--gold-bright);font-style:italic;}
+  .lead{font-family:'Cormorant',serif;font-size:27px;line-height:1.45;color:var(--white);font-weight:500;}
+  .lead em{color:var(--gold-bright);}
+
+  section{margin:54px 0;}
+
+  /* ---- Price table ---- */
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0 18px;font-family:'Inter';}
+  .tbl th{text-align:left;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 0 14px;border-bottom:1px solid var(--line);}
+  .tbl th:last-child,.tbl td:last-child{text-align:right;}
+  .tbl td{padding:16px 0;border-bottom:1px solid rgba(200,145,47,.09);font-size:18px;}
+  .tbl .m{font-family:'Cormorant',serif;font-size:24px;font-weight:600;color:var(--white);}
+  .tbl .px{color:var(--body);font-variant-numeric:tabular-nums;}
+  .tbl .dn{color:var(--copper);font-variant-numeric:tabular-nums;text-align:right;font-weight:500;}
+  .tbl .hold{color:var(--gold-bright);}
+  .cap{font-size:14px;color:var(--muted);line-height:1.6;font-style:italic;}
+
+  /* numbered points */
+  .pt{margin:30px 0;}
+  .pt .lbl{font-family:'Cormorant',serif;font-size:26px;color:var(--white);font-weight:600;margin-bottom:6px;}
+  .pt .lbl b{color:var(--gold-bright);}
+
+  /* watch list */
+  ul.watch{list-style:none;margin:6px 0 0;}
+  ul.watch li{position:relative;padding:14px 0 14px 30px;border-bottom:1px solid rgba(200,145,47,.09);}
+  ul.watch li::before{content:"";position:absolute;left:0;top:22px;width:9px;height:9px;transform:rotate(45deg);border:1.2px solid var(--gold);}
+  ul.watch li strong{color:var(--white);}
+
+  /* take */
+  .take{background:linear-gradient(180deg,rgba(200,145,47,.06),transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:42px 0;}
+  .sig{font-family:'Cormorant',serif;font-style:italic;font-size:24px;color:var(--gold-bright);margin-top:10px;}
+
+  footer{margin-top:60px;padding-top:36px;border-top:1px solid var(--line);text-align:center;}
+  footer p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+  footer a{color:var(--gold-bright);text-decoration:none;letter-spacing:.04em;}
+
+  /* ---- Back link ---- */
+  .back-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:24px 0 0;transition:color .2s;}
+  .back-link:hover{color:var(--gold-bright);}
+
+  @media (max-width:620px){
+    body{font-size:17px;}
+    .title{font-size:44px;}
+    h2{font-size:29px;}
+    .lead{font-size:23px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="/letters" class="back-link">&larr; All Issues</a>
+
+  <header>
+    <div class="logo"><i class="l"></i><i class="c"></i><i class="r"></i><span class="dot"></span></div>
+    <div class="kicker">The</div>
+    <div class="title">Merchant's Letter</div>
+    <div class="issue">Issue 001 · Week ending 26 June 2026</div>
+    <div class="dek">Energy and metals, explained from inside the trade.</div>
+  </header>
+
+  <div class="div"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
+
+  <section>
+    <h2>This week, in one screen</h2>
+    <p class="lead">Four months ago, oil was over $120 and people were talking about $150. This week it's back near $72.</p>
+    <p>That's the whole market in a sentence: the war scare came, and the war scare went. The Strait of Hormuz is reopening, Saudi tankers are loading for the first time since March, and the fear premium that pushed crude over $120 has bled out of the price.</p>
+    <p>But here's the part worth your attention. The same event — calm returning to the Gulf — pushed oil and gold <em>down</em> and left copper standing. Three commodities, one headline, three completely different reactions. Understanding <em>why</em> is the entire job, and it's what this letter is for.</p>
+    <p>This is Issue 001. Welcome.</p>
+  </section>
+
+  <section>
+    <h2>The week on the screen</h2>
+    <table class="tbl">
+      <thead><tr><th>Metal</th><th>LME 3-month</th><th>On the week</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Copper</td><td class="px">$13,357</td><td class="dn hold">−1.8%</td></tr>
+        <tr><td class="m">Zinc</td><td class="px">$3,472</td><td class="dn">−2.4%</td></tr>
+        <tr><td class="m">Nickel</td><td class="px">$16,699</td><td class="dn">−5.0%</td></tr>
+        <tr><td class="m">Aluminium</td><td class="px">$3,180</td><td class="dn">−6.4%</td></tr>
+      </tbody>
+    </table>
+    <p class="cap">LME official provisional closes, 26 June vs 19 June. Oil (Brent) fell roughly 10% on the week, its worst in a month. Gold fell about 5%.</p>
+    <p style="margin-top:22px;">Look at the order. Everything fell — but copper barely moved while aluminium and nickel dropped five to six percent. That gap <em>is</em> the story this week. Hold that thought.</p>
+  </section>
+
+  <div class="div"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
+
+  <section>
+    <h2>Three things that mattered</h2>
+
+    <div class="pt"><div class="lbl"><b>1.</b> Oil: the fear left faster than it arrived.</div></div>
+    <p>When the Gulf was tense, traders paid up for oil because they were scared supply would get cut. That fear had a price — a "war premium" sitting on top of the real value of a barrel. This week the premium vanished: ships are moving through Hormuz, the blockade is over, and crude fell all the way back to where it started.</p>
+    <p>This is the oldest pattern in commodities. Fear premiums spike fast and unwind faster. Anyone who bought the headline got paid — and is now getting carried back out.</p>
+
+    <div class="pt"><div class="lbl"><b>2.</b> Gold: everyone's blaming the wrong thing.</div></div>
+    <p>Gold had its worst week in a while, down about 5%, and it's now roughly 20% below its January record. The easy explanation is the peace deal — less fear, less need for a safe haven. That's partly true.</p>
+    <p>But it's not the main driver. The real one is the <strong>US Federal Reserve</strong>. The Fed turned hawkish — signalling it may <em>raise</em> interest rates rather than cut them — and a stronger dollar with higher rates hurts gold far more than a ceasefire does. When everyone points at one headline, it's worth checking what else moved. This week, the Fed moved.</p>
+
+    <div class="pt"><div class="lbl"><b>3.</b> Copper: the one that didn't fall.</div></div>
+    <p>While oil crashed and the rest of the metals slid, copper barely budged — still near its record high. Why does copper hold when everything else drops?</p>
+    <p>Because copper isn't a fear trade. It's a supply trade. Which brings us to the one bit of depth worth your time this week.</p>
+  </section>
+
+  <div class="div"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
+
+  <section>
+    <h2>Why copper is really a supply story</h2>
+    <p>Here's the thing most headlines miss. Copper isn't expensive because of the Middle East or the Fed. It's expensive because the world isn't producing enough of it — and you can't build a data centre, an electric car, or a power grid without it.</p>
+    <p>There's a quieter supply squeeze underneath, too. Copper has to be smelted to be usable, and smelting needs sulphuric acid. A big chunk of the world's acid supply got disrupted this year — partly from the same Gulf tensions, partly because China, the largest exporter, halted acid exports through the summer. Less acid, harder smelting, tighter copper. You won't read that on the front page, but it's a real reason the metal is holding while everything else falls.</p>
+    <p>The short version: <strong>oil reacts to the news. Copper reacts to the shortage.</strong> One is a headline. The other is a structural fact that doesn't unwind on a ceasefire. That's why they moved in opposite directions this week.</p>
+  </section>
+
+  <div class="div"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
+
+  <section>
+    <h2>What I'm watching next</h2>
+    <ul class="watch">
+      <li><strong>Oil — the ships, not the headlines.</strong> Hormuz is "open," but it's half-empty, insurance is high, and a tanker was hit off Oman this week. "Open" on paper and "back to normal" aren't the same thing. The price has fully relaxed; the physical reality hasn't caught up.</li>
+      <li><strong>Gold — the Fed.</strong> Forget the peace deal. Watch whether the Fed actually hikes. That's what sets gold's direction from here.</li>
+      <li><strong>Copper — supply signals.</strong> Any sign the acid squeeze eases, or that mine and smelter output picks up. That's what would finally cool the metal that refused to fall.</li>
+    </ul>
+  </section>
+
+  <section class="take">
+    <h2>The Merchant's take</h2>
+    <p>This week the market got a clean lesson in what's a headline and what's structure.</p>
+    <p>Oil fell because a fear premium left — that was always temporary. Gold fell because the Fed got tough, not because of the peace deal everyone's pointing at. And copper held because its story was never about the war in the first place. It's about a world that can't mine enough of the metal it needs.</p>
+    <p>Same headline. Three different reactions. Knowing why is the whole game — and it's what I'll be writing about here every week.</p>
+    <p>Watch the ships. Watch the Fed. And watch copper — because the metal that won't fall is usually trying to tell you something.</p>
+    <div class="sig">— The Merchant</div>
+  </section>
+
+  <footer>
+    <div class="logo" style="width:130px;height:70px;transform:scale(.62);margin-bottom:8px;"><i class="l"></i><i class="c"></i><i class="r"></i><span class="dot"></span></div>
+    <p>The Merchant's Letter publishes weekly. Energy and metals, from over fifteen years on the trading desk. Plain English, no hype. Free to subscribe.</p>
+    <p>Nothing here is financial, legal, tax, or investment advice — it's analytical perspective only.</p>
+    <p><a href="https://commoditymerchant.net">commoditymerchant.net</a> · <a href="/letters">All Issues</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
