@@ -1,0 +1,5 @@
+# Serve the price snapshot as JSON with a short cache so the ticker
+# picks up daily updates promptly.
+/api/prices
+  Content-Type: application/json
+  Cache-Control: public, max-age=300

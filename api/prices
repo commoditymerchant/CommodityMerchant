@@ -1,0 +1,23 @@
+{
+  "updatedAt": "2026-08-04T09:50:50.951Z",
+  "gold": {
+    "price": 4103.7,
+    "change": 0.09
+  },
+  "silver": {
+    "price": 58.95,
+    "change": 0.22
+  },
+  "copper": {
+    "price": 14596.81,
+    "change": 2.74
+  },
+  "aluminium": {
+    "price": 3440.75,
+    "change": 2.23
+  },
+  "brent": {
+    "price": 85.8,
+    "change": -3.63
+  }
+}

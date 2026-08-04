@@ -20,7 +20,14 @@ either connect this repo as the Netlify site's source (publish directory:
 repo root, no build command), or drag-and-drop the repo contents in the
 Netlify UI.
 
-Note: the live site also serves `/api/prices` (daily commodity prices used
-by the homepage ticker). That is a Netlify serverless function whose source
-is not in this repository; the ticker falls back to the hardcoded values in
+## Daily prices
+
+`api/prices` is a static JSON snapshot read by the homepage ticker
+(served as JSON via `_headers`). It is refreshed each weekday by
+`.github/workflows/update-prices.yml`, which runs `scripts/update-prices.mjs`
+(Yahoo Finance chart API, falling back to gold-api.com and FRED public CSVs)
+and commits the result. For the live site to pick up those updates
+automatically, the Netlify project must be connected to this repository;
+with manual (drag-and-drop) deploys the snapshot only updates when a new
+deploy is uploaded. The ticker falls back to hardcoded values in
 `index.html` if the endpoint is unavailable.
