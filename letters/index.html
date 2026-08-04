@@ -1,602 +1,76 @@
-<!DOCTYPE html>
-<html lang="en" style="color-scheme: dark only; background: #050708;">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="dark only">
-<meta name="theme-color" content="#050708">
-<meta name="supported-color-schemes" content="dark">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Merchant's Letter · Archive — The Commodity Merchant</title>
 <meta name="description" content="The Merchant's Letter — weekly commodity market intelligence from inside the trade. Past issues archive.">
-<title>The Merchant's Letter · Archive · The Commodity Merchant</title>
-<link rel="canonical" href="https://commoditymerchant.net/letters">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Merchant's Letter · Archive">
 <meta property="og:description" content="Weekly commodity market intelligence from inside the trade. Past issues archive.">
-<meta property="og:url" content="https://commoditymerchant.net/letters">
-<meta property="og:site_name" content="The Commodity Merchant">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The Merchant's Letter · Archive">
-<meta name="twitter:description" content="Weekly commodity market intelligence from inside the trade. Past issues archive.">
+<meta property="og:url" content="https://commoditymerchant.net/letters/">
+<link rel="canonical" href="https://commoditymerchant.net/letters/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/letters/shared-letter.css">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  color-scheme: dark only;
-  --bg-base: #050708;
-  --bg-elev-1: #0A0D0E;
-  --bg-elev-2: #0F1314;
-  --bg-card: #10161A;
-  --bg-card-hover: #151C20;
-  --border-subtle: rgba(212, 178, 106, 0.1);
-  --border-default: rgba(212, 178, 106, 0.22);
-  --border-strong: rgba(212, 178, 106, 0.4);
-  --gold: #D4B26A;
-  --gold-bright: #F0D89C;
-  --gold-deep: #9C7F44;
-  --silver: #D0D5DC;
-  --copper: #D08B4E;
-  --text-primary: #FFFFFF;
-  --text-body: #E8E8EC;
-  --text-secondary: #C8CCD0;
-  --text-tertiary: #8B9098;
-  --text-muted: #5A6068;
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-html, body {
-  background: #050708 !important;
-  color-scheme: dark only;
-  overflow-x: hidden;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg-base);
-  color: var(--text-body);
-  font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-}
-
-@media (prefers-color-scheme: light) {
-  html, body { background: #050708 !important; }
-}
-
-/* ═══ BACKGROUND LAYERS ═══ */
-.bg-noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.3;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.70 0 0 0 0 0.42 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ═══ LAYOUT ═══ */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  position: relative;
-  z-index: 2;
-}
-
-/* ═══ TYPOGRAPHY ═══ */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 28px;
-}
-
-.eyebrow::before {
-  content: '';
-  width: 32px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold));
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(38px, 5vw, 64px);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin-bottom: 32px;
-  font-variation-settings: "opsz" 144;
-}
-
-.section-title em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--gold-bright);
-  position: relative;
-}
-
-.lead {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 640px;
-  font-weight: 400;
-}
-
-/* ═══ NAV ═══ */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 20px 0;
-  transition: all 0.4s ease;
-  background: rgba(5, 7, 8, 0.5);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-}
-
-nav.scrolled {
-  background: rgba(5, 7, 8, 0.92);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 14px 0;
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
-
-.brand-mark { display: flex; gap: 2px; perspective: 100px; }
-
-.brand-mark .diamond {
-  width: 14px;
-  height: 14px;
-  transform: rotate(45deg);
-  border: 1.5px solid;
-  transition: transform 0.4s ease;
-}
-
-.brand-mark .diamond:nth-child(1) { border-color: var(--gold); }
-.brand-mark .diamond:nth-child(2) { border-color: var(--silver); margin-left: -5px; }
-.brand-mark .diamond:nth-child(3) { border-color: var(--copper); margin-left: -5px; }
-
-.nav-brand:hover .brand-mark .diamond { transform: rotate(45deg) scale(1.1); }
-
-.nav-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-
-.nav-links { display: flex; gap: 36px; align-items: center; list-style: none; }
-
-.nav-links a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  transition: color 0.3s;
-  position: relative;
-}
-
-.nav-links a:not(.nav-cta)::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0;
-  width: 0; height: 1px;
-  background: var(--gold);
-  transition: width 0.3s;
-}
-
-.nav-links a:not(.nav-cta):hover { color: var(--text-primary); }
-.nav-links a:not(.nav-cta):hover::after { width: 100%; }
-.nav-links a.active { color: var(--text-primary); }
-.nav-links a.active::after { width: 100%; }
-
-.nav-cta {
-  padding: 10px 22px;
-  border: 1px solid var(--gold);
-  border-radius: 3px;
-  color: var(--gold) !important;
-  font-weight: 600;
-  transition: all 0.3s;
-  background: rgba(212, 178, 106, 0.08);
-}
-
-.nav-cta:hover {
-  background: var(--gold);
-  color: var(--bg-base) !important;
-  box-shadow: 0 0 24px rgba(212, 178, 106, 0.4);
-}
-
-/* ═══ ARCHIVE HERO ═══ */
-.archive-hero {
-  padding: 180px 0 80px;
-  position: relative;
-  background: var(--bg-base);
-}
-
-.archive-hero::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 600px; height: 400px;
-  background: radial-gradient(ellipse, rgba(212, 178, 106, 0.06), transparent 70%);
-  pointer-events: none;
-}
-
-/* ═══ ISSUE LIST ═══ */
-.issues-section {
-  padding: 0 0 120px;
-  position: relative;
-  background: var(--bg-base);
-}
-
-.issue-card {
-  display: block;
-  text-decoration: none;
-  padding: 40px;
-  background: var(--bg-elev-1);
-  border: 1px solid var(--border-default);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.issue-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--silver), var(--copper));
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.issue-card:hover {
-  border-color: var(--border-strong);
-  background: var(--bg-card-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-}
-
-.issue-card:hover::before { opacity: 1; }
-
-.issue-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
-.issue-number {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding: 5px 12px;
-  border: 1px solid var(--border-default);
-  border-radius: 3px;
-  background: rgba(212, 178, 106, 0.06);
-}
-
-.issue-date {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.issue-title {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 72;
-}
-
-.issue-desc {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 640px;
-}
-
-.issue-arrow {
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 22px;
-  color: var(--text-muted);
-  transition: all 0.3s;
-}
-
-.issue-card:hover .issue-arrow {
-  color: var(--gold);
-  transform: translateY(-50%) translateX(6px);
-}
-
-/* ═══ REVEAL ═══ */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-d1 { transition-delay: 0.12s; }
-.reveal-d2 { transition-delay: 0.24s; }
-
-/* ═══ FOOTER ═══ */
-footer {
-  border-top: 1px solid var(--border-subtle);
-  padding: 80px 0 40px;
-  background: var(--bg-base);
-  position: relative;
-  z-index: 2;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
-}
-
-.footer-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-
-.footer-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  max-width: 340px;
-  line-height: 1.7;
-}
-
-.footer-heading {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 24px;
-  font-weight: 600;
-}
-
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 14px; }
-
-.footer-links a {
-  color: var(--text-body);
-  text-decoration: none;
-  font-size: 14px;
-  transition: color 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.footer-links a:hover { color: var(--gold); }
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 32px;
-  border-top: 1px solid var(--border-subtle);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-tertiary);
-  letter-spacing: 1px;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-weight: 500;
-}
-
-.footer-disclaimer {
-  max-width: 900px;
-  font-size: 11.5px;
-  color: var(--text-tertiary);
-  line-height: 1.7;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 900px) {
-  .nav-links { gap: 16px; }
-  .nav-links li:not(:last-child) { display: none; }
-  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-  .container { padding: 0 24px; }
-  .archive-hero { padding: 140px 0 60px; }
-  .issue-card { padding: 28px; }
-  .issue-arrow { right: 28px; }
-}
+  .cards{display:flex;flex-direction:column;gap:16px;margin:36px 0}
+  a.card{display:block;padding:26px 28px;border:1px solid var(--line);border-radius:16px;
+    background:var(--card);text-decoration:none;color:var(--text);transition:border-color .2s, transform .2s}
+  a.card:hover{border-color:rgba(94,234,212,.4);transform:translateY(-2px)}
+  .card .meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;margin-bottom:10px}
+  .card .no{color:var(--teal)}
+  .card .date{color:var(--faint)}
+  .card .t{font-weight:600;font-size:21px;color:var(--bright);letter-spacing:-.01em;margin:0 0 6px}
+  .card .b{font-size:14.5px;color:var(--dim);margin:0}
+  .count{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--faint);margin-top:8px}
 </style>
 </head>
 <body>
+<main class="wrap">
 
-<div class="bg-noise"></div>
+  <a class="back" href="https://commoditymerchant.net">&larr; commoditymerchant.net</a>
 
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-brand">
-      <div class="brand-mark">
-        <div class="diamond"></div>
-        <div class="diamond"></div>
-        <div class="diamond"></div>
-      </div>
-      <span class="nav-name">The Commodity Merchant</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href='/about'>About</a></li>
-      <li><a href="/letters" class="active">Newsletter</a></li>
-      <li><a href="/#guide">Guide</a></li>
-      <li><a href="https://commoditymerchant.substack.com" class="nav-cta" target="_blank">Subscribe</a></li>
-    </ul>
-  </div>
-</nav>
+  <header class="masthead">
+    <div class="m-eyebrow">Letter <b>/</b> Archive</div>
+    <h1 class="m-title">Every letter, <span class="grad">from the desk</span></h1>
+    <p class="m-stand">Weekly commodity market intelligence from inside the trade. Free to read, delivered by Substack.</p>
+  </header>
 
-<section class="archive-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Archive</span>
-    <h1 class="section-title reveal reveal-d1">
-      The Merchant's <em>Letter</em>
-    </h1>
-    <p class="lead reveal reveal-d2">
-      Past issues — energy and metals, from inside the trade.
-    </p>
-  </div>
-</section>
+  <div class="cards">
 
-<section class="issues-section">
-  <div class="container">
-
-    <!-- ══════════════════════════════════════════
-         ADD NEW ISSUES HERE (newest first).
-         Copy the <a class="issue-card"> block below,
-         update the number, date, title, description, and href.
-         ══════════════════════════════════════════ -->
-
-    <a href="/letters/003-copper-breaks-14000/" class="issue-card reveal">
-      <div class="issue-meta">
-        <span class="issue-number">Special Issue</span>
-        <span class="issue-date">Tuesday 4 August 2026</span>
-      </div>
-      <div class="issue-title">The day copper broke $14,000 — on good news</div>
-      <div class="issue-desc">
-        Peace headlines in the Gulf, and the metal rallied anyway. That combination is the most honest thing the market has said all year — the physical read.
-      </div>
-      <span class="issue-arrow">&rarr;</span>
+    <a class="card" href="/letters/003-copper-breaks-14000/">
+      <div class="meta"><span class="no">Special Issue</span><span class="date">Tuesday 4 August 2026</span></div>
+      <p class="t">The day copper broke $14,000 — on good news</p>
+      <p class="b">Peace headlines in the Gulf, and the metal rallied anyway. That combination is the most honest thing the market has said all year — the physical read.</p>
     </a>
 
-    <a href="/letters/002-the-fed-blinked/" class="issue-card reveal">
-      <div class="issue-meta">
-        <span class="issue-number">Issue 002</span>
-        <span class="issue-date">Week of 3 July 2026</span>
-      </div>
-      <div class="issue-title">The Fed blinked</div>
-      <div class="issue-desc">
-        Gold and silver came roaring back, oil sat still, and copper wouldn't fall — again.
-      </div>
-      <span class="issue-arrow">&rarr;</span>
+    <a class="card" href="/letters/002-the-fed-blinked/">
+      <div class="meta"><span class="no">Issue 002</span><span class="date">Week of 3 July 2026</span></div>
+      <p class="t">The Fed blinked</p>
+      <p class="b">Gold and silver came roaring back, oil sat still, and copper wouldn't fall — again.</p>
     </a>
 
-    <a href="/letters/issue-001" class="issue-card reveal">
-      <div class="issue-meta">
-        <span class="issue-number">Issue 001</span>
-        <span class="issue-date">Week ending 26 June 2026</span>
-      </div>
-      <div class="issue-title">One headline, three reactions</div>
-      <div class="issue-desc">
-        Oil crashed, gold dropped, copper held — the same Gulf ceasefire moved three commodities in three different directions. Why the divergence matters more than any single price.
-      </div>
-      <span class="issue-arrow">&rarr;</span>
+    <a class="card" href="/letters/issue-001">
+      <div class="meta"><span class="no">Issue 001</span><span class="date">Week ending 26 June 2026</span></div>
+      <p class="t">One headline, three reactions</p>
+      <p class="b">Oil crashed, gold dropped, copper held — one Gulf ceasefire, three different directions.</p>
     </a>
 
   </div>
-</section>
 
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <div class="brand-mark">
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-          </div>
-          <span class="nav-name">The Commodity Merchant</span>
-        </div>
-        <p class="footer-desc">
-          Independent commentary on the physical commodity trade. Energy, base and precious metals — from over fifteen years on the trading desk.
-        </p>
-      </div>
-      <div>
-        <div class="footer-heading">Explore</div>
-        <ul class="footer-links">
-          <li><a href='/about'>About</a></li>
-          <li><a href="/letters">Newsletter</a></li>
-          <li><a href="/#guide">Guide</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-heading">Connect</div>
-        <ul class="footer-links">
-          <li><a href="https://www.instagram.com/commoditymerchant/" target="_blank">Instagram</a></li>
-          <li><a href="https://x.com/commoditymch" target="_blank">X / Twitter</a></li>
-          <li><a href="https://www.tiktok.com/@commoditymerchant" target="_blank">TikTok</a></li>
-          <li><a href="https://commoditymerchant.substack.com" target="_blank">Substack</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-heading">Contact</div>
-        <ul class="footer-links">
-          <li><a href="mailto:info@commoditymerchant.net">info@commoditymerchant.net</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 THE COMMODITY MERCHANT &middot; EST. 2011</span>
-      <span>COMMODITYMERCHANT.NET</span>
-    </div>
-    <div class="footer-disclaimer">
-      The Commodity Merchant publishes commentary and educational content. Nothing on this site constitutes legal, financial, tax, or investment advice.
-    </div>
+  <p class="count">Three issues published — entries open the full letter</p>
+
+  <div class="cta">
+    <p class="cta-eyebrow">The Merchant&rsquo;s Letter</p>
+    <p>One letter a week — energy and metals, from over fifteen years on the trading desk. Plain English, no hype.</p>
+    <a class="btn" href="https://commoditymerchant.substack.com/subscribe" target="_blank" rel="noopener">Subscribe — free</a>
   </div>
-</footer>
 
-<script>
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
-</script>
-
+</main>
 </body>
 </html>

@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Fed blinked — The Merchant's Letter, Issue 002</title>
 <meta name="description" content="Gold and silver came roaring back, oil sat still, and copper wouldn't fall — again. The mover this week wasn't a war. It was a jobs report.">
-<!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Fed blinked — The Merchant's Letter, Issue 002">
 <meta property="og:description" content="Gold and silver came roaring back, oil sat still, and copper wouldn't fall — again. The mover this week wasn't a war. It was a jobs report.">
@@ -13,95 +12,25 @@
 <link rel="canonical" href="https://commoditymerchant.net/letters/002-the-fed-blinked/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0A0807; --cream:#FAF6EC; --gold:#C9A961; --gold-deep:#9A7327;
-    --navy:#16243F; --copper:#A24A22; --muted:#5b5347; --line:#Dcd2b8; --up:#1f6b3b;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--cream);color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;font-size:18px;line-height:1.75;}
-  .wrap{max-width:720px;margin:0 auto;padding:0 22px 72px;}
-  a{color:var(--navy)}
-
-  /* Masthead */
-  .masthead{position:relative;background:var(--ink);color:var(--cream);
-    border-radius:4px;margin:24px 0 32px;padding:44px 28px 40px;text-align:center;overflow:hidden;}
-  .masthead:before{content:"";position:absolute;inset:0;
-    background:radial-gradient(120% 90% at 50% 25%, rgba(201,169,97,.20), rgba(10,8,7,0) 58%);}
-  .masthead > *{position:relative}
-  .m-dia{color:var(--gold);letter-spacing:.5em;font-size:14px;margin-bottom:14px}
-  .m-eyebrow{font-weight:600;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-  h1.m-title{font-family:'Cormorant',serif;font-weight:600;font-size:clamp(38px,9vw,60px);line-height:1.02;margin:0}
-  .m-stand{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
-    font-size:clamp(19px,3.4vw,23px);line-height:1.45;color:#d7ccb2;max-width:34em;margin:18px auto 0}
-  .m-byline{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9c917a;margin-top:24px}
-
-  h2{font-family:'Cormorant',serif;font-weight:600;font-size:clamp(26px,5vw,34px);
-    color:var(--navy);line-height:1.1;margin:44px 0 10px}
-  h3.num{font-family:'Cormorant',serif;font-weight:600;font-size:23px;color:var(--copper);margin:28px 0 4px}
-  p{margin:0 0 1.05em}
-  .lead:first-letter{font-family:'Cormorant',serif;font-weight:600;font-size:64px;line-height:.72;
-    float:left;color:var(--copper);padding:6px 10px 0 0}
-
-  /* Price table */
-  table{width:100%;border-collapse:collapse;margin:22px 0 8px;font-size:16px}
-  caption{caption-side:top;text-align:left;font-weight:700;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--copper);padding-bottom:10px}
-  th{font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;text-align:left;
-    color:var(--cream);background:var(--navy);padding:10px 12px}
-  td{padding:10px 12px;border-bottom:1px solid var(--line)}
-  td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
-  td.up{color:var(--up);font-weight:600} td.down{color:var(--copper);font-weight:600}
-  .tnote{font-size:13px;color:var(--muted);font-style:italic;margin-top:2px}
-
-  /* Callout boxes */
-  .note{margin:26px 0;padding:20px 22px;border-radius:3px;font-size:16px;line-height:1.6}
-  .note .tag{display:block;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
-  .note .tag:before{content:"\25C6\00a0\00a0"}
-  .note p{margin:0}
-  .desk{background:#F2EBD8;border-left:3px solid var(--gold-deep)} .desk .tag{color:var(--gold-deep)}
-  .lens{background:#eef0f4;border-left:3px solid var(--navy)} .lens .tag{color:var(--navy)}
-
-  ul.tick{list-style:none;padding:0;margin:.2em 0 1.2em}
-  ul.tick li{position:relative;padding-left:26px;margin-bottom:10px;line-height:1.55}
-  ul.tick li:before{content:"\25C6";position:absolute;left:0;top:2px;color:var(--gold-deep);font-size:11px}
-
-  .pull{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
-    font-size:clamp(22px,4vw,27px);line-height:1.4;color:var(--navy);text-align:center;margin:36px 12px}
-
-  .signoff{font-family:'Cormorant',serif;font-size:22px;color:var(--ink);margin-top:8px}
-
-  /* Subscribe CTA */
-  .cta{margin:40px 0;padding:26px;text-align:center;background:var(--ink);border-radius:4px;color:var(--cream)}
-  .cta p{margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#d7ccb2}
-  .cta a{display:inline-block;background:var(--gold);color:var(--ink);font-weight:600;font-size:14px;
-    letter-spacing:.05em;text-decoration:none;padding:12px 26px;border-radius:3px}
-
-  .sources{margin-top:44px;border-top:1px solid var(--line);padding-top:20px}
-  .sources h3{font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);margin:0 0 8px}
-  .sources ol{margin:0;padding-left:20px;font-size:13px;color:var(--muted);line-height:1.6}
-  .disc{font-size:13px;color:var(--muted);line-height:1.55;margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
-
-  .backlink{display:inline-block;margin:28px 0 0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);text-decoration:none}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/letters/shared-letter.css">
 </head>
 <body>
 <main class="wrap">
 
+  <a class="back" href="/letters/">&larr; All letters</a>
+
   <header class="masthead">
-    <div class="m-dia">&#9670; &#9670; &#9670;</div>
-    <div class="m-eyebrow">The Merchant&rsquo;s Letter &middot; Issue 002 &middot; Week of 3 July 2026</div>
-    <h1 class="m-title">The Fed blinked</h1>
+    <div class="m-eyebrow">The Merchant&rsquo;s Letter <b>&middot;</b> Issue 002 <b>&middot;</b> Week of 3 July 2026</div>
+    <h1 class="m-title">The Fed <span class="grad">blinked</span></h1>
     <p class="m-stand">Gold and silver came roaring back, oil sat still, and copper wouldn&rsquo;t fall &mdash; again.
       The mover this week wasn&rsquo;t a war. It was a jobs report.</p>
     <div class="m-byline">The Merchant &middot; 15+ years on trading desks &middot; Energy &amp; metals &middot; Plain English, no hype</div>
   </header>
 
+  <div class="sec"><b>01</b> / One screen</div>
   <h2>This week, in one screen</h2>
-  <p class="lead">Last week I told you to forget the peace deal and watch the Fed. This week the Fed blinked &mdash; and
+  <p>Last week I told you to forget the peace deal and watch the Fed. This week the Fed blinked &mdash; and
     it repriced the whole board. A soft US jobs report &mdash; just <strong>57,000 jobs</strong> added against about
     115,000 expected &mdash; knocked a September rate hike off the table. Yields eased, the dollar softened, and the
     two trades that had been beaten up for a month came straight back to life. <strong>Gold posted its first up week
@@ -126,14 +55,15 @@
   </table>
   <p class="tnote">Base metals: LME 3-month closes, provisional. Oil: Brent front-month. Gold &amp; silver: spot. Figures rounded.</p>
 
-  <p>Look at the reversal. Last week gold and silver were the two biggest losers on the board; this week they&rsquo;re
+  <p style="margin-top:22px;">Look at the reversal. Last week gold and silver were the two biggest losers on the board; this week they&rsquo;re
     the two biggest gainers. Nothing about the metal changed &mdash; the Fed did. Meanwhile the base metals barely
     moved and oil sat still. When the same names swing from worst to first in seven days, the price is telling you the
     story was never really about them. It was about rates.</p>
 
+  <div class="sec"><b>02</b> / Three things</div>
   <h2>Three things that mattered</h2>
 
-  <h3 class="num">1 &middot; Gold and silver: the Fed blinked</h3>
+  <p class="sub"><span class="n">1 /</span> Gold and silver: the Fed blinked</p>
   <p>Last week gold fell and everyone blamed the peace deal. I told you the real driver was the Fed turning hawkish.
     This week you got the proof in reverse: one weak jobs number, traders scratched a September hike, and gold had its
     best week in over a month while silver ripped around 9%. Nothing geopolitical changed. The Fed&rsquo;s odds did
@@ -141,24 +71,25 @@
     gold. That&rsquo;s not a surprise, it&rsquo;s a rule: silver goes the same way as gold, just more violently,
     every time.</p>
 
-  <h3 class="num">2 &middot; Oil: the quiet is the story</h3>
+  <p class="sub"><span class="n">2 /</span> Oil: the quiet is the story</p>
   <p>Brent is stuck around $72 &mdash; right back where it sat before the war. The premium is gone and it isn&rsquo;t
     coming back on its own. The Gulf keeps normalising: the US blockade is lifted, tankers are moving, and mediators
     from Qatar and Pakistan are shuttling between Washington and Tehran. With the war premium fully drained, oil is
     back to trading boring fundamentals &mdash; soft demand, plenty of supply. Boring <em>is</em> the story.</p>
 
-  <div class="note desk"><span class="tag">Desk Note</span>
+  <div class="note"><span class="tag">Desk Note</span>
     <p>The one thing that could un-bore oil: Iran has floated &ldquo;service fees&rdquo; on ships passing through
       Hormuz &mdash; legally shaky on an international waterway, but worth watching, because that is exactly where the
       next premium would come from. A quiet market is where the next shock is always underpriced.</p></div>
 
-  <h3 class="num">3 &middot; Copper: still won&rsquo;t fall</h3>
+  <p class="sub"><span class="n">3 /</span> Copper: still won&rsquo;t fall</p>
   <p>Same as last week &mdash; everything else wobbled and copper didn&rsquo;t. It&rsquo;s still sitting near its
     record, barely down on the week, and the softer-Fed repricing even handed it a small tailwind. The reason
     hasn&rsquo;t changed: copper is a supply story, not a fear story, and a supply squeeze &mdash; not enough mines, a
     tight sulphuric-acid market underneath it &mdash; doesn&rsquo;t ease because a jobs report missed. The metal that
     refuses to fall is still refusing.</p>
 
+  <div class="sec"><b>03</b> / The deep dive</div>
   <h2>Why a jobs number moved gold more than a war did</h2>
   <p>Here&rsquo;s the bit worth your time this week. Over the last month a full-blown Middle East war, and then a
     ceasefire, pushed gold around. But its single biggest up-move in five weeks came from none of that &mdash; it came
@@ -169,12 +100,13 @@
     pressure comes straight off, and gold lifts. The war was noise on top of this. Real interest rates and the dollar
     are the signal underneath it.</p>
 
-  <div class="note lens"><span class="tag">Investor&rsquo;s Lens</span>
+  <div class="note indigo"><span class="tag">Investor&rsquo;s Lens</span>
     <p>Geopolitics gives gold a fast, temporary shove; the Fed gives it direction. That is why the useful question is
       rarely &ldquo;what did the headline do to gold&rdquo; but &ldquo;what did it do to the odds of a rate move.&rdquo;
       This week the direction turned &mdash; and it turned on a number almost nobody outside markets was even
       watching.</p></div>
 
+  <div class="sec"><b>04</b> / Watchlist</div>
   <h2>What I&rsquo;m watching next</h2>
   <ul class="tick">
     <li><strong>Gold &mdash; still the Fed.</strong> A September hike is off the table, but futures still point at a
@@ -187,6 +119,7 @@
       output picks up. Until then, assume the metal keeps holding.</li>
   </ul>
 
+  <div class="sec"><b>05</b> / The take</div>
   <h2>The Merchant&rsquo;s read</h2>
   <p>Last week the lesson was that fear premiums leave faster than they arrive. This week&rsquo;s is the twin of it:
     the things that fall on fear come back on rates. Gold and silver didn&rsquo;t rally because the world suddenly got
@@ -199,8 +132,9 @@
   <p class="signoff">&mdash; The Merchant</p>
 
   <div class="cta">
+    <p class="cta-eyebrow">The Merchant&rsquo;s Letter</p>
     <p>Energy and metals, from over fifteen years on the trading desk. Plain English, no hype. Free every week.</p>
-    <a href="https://commoditymerchant.substack.com/subscribe">Subscribe free</a>
+    <a class="btn" href="https://commoditymerchant.substack.com/subscribe" target="_blank" rel="noopener">Subscribe free</a>
   </div>
 
   <div class="sources">
@@ -220,7 +154,7 @@
     and are illustrative of market mechanics, not live trading levels. Commodities carry substantial risk of loss.
     &copy; 2026 The Commodity Merchant.</p>
 
-  <a class="backlink" href="/letters/">&larr; All letters</a>
+  <a class="back" href="/letters/">&larr; All letters</a>
 
 </main>
 </body>
