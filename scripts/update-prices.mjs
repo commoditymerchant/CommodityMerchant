@@ -50,6 +50,26 @@ async function goldApi(symbol, convert = (p) => p) {
   return { px: convert(data.price), chg: null };
 }
 
+// Westmetall publishes LME official settlements daily (the source the
+// letters cite). We take the 3-month column of the last two sessions so the
+// change is a real day-over-day move. COMEX-derived numbers are NOT a
+// substitute here: US copper trades at a structural tariff premium to LME.
+async function westmetall(field) {
+  const html = await getText(`https://www.westmetall.com/en/markdaten.php?action=table&field=${field}`);
+  const rows = [];
+  for (const tr of html.match(/<tr[^>]*>[\s\S]*?<\/tr>/g) ?? []) {
+    const cells = [...tr.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/g)]
+      .map((m) => m[1].replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').trim());
+    if (cells.length < 3 || !/\d{4}/.test(cells[0])) continue;
+    const m3 = parseFloat(cells[2].replace(/,/g, ''));
+    if (Number.isFinite(m3)) rows.push(m3);
+    if (rows.length === 2) break;
+  }
+  if (!rows.length) throw new Error(`no data from westmetall ${field}`);
+  const [px, prev] = rows;
+  return { px, chg: prev ? round(((px - prev) / prev) * 100, 2) : null };
+}
+
 // FRED public CSV (no API key). Returns the last two valid observations so
 // daily series yield a real day-over-day change.
 async function fred(seriesId) {
@@ -67,10 +87,10 @@ async function fred(seriesId) {
 }
 
 const SYMBOLS = {
-  copper:    { name: 'Copper · LME 3M', decimals: 0, primary: () => yahoo('HG=F', (p) => p * LB_PER_TONNE), fallback: () => goldApi('HG', (p) => p * LB_PER_TONNE) },
+  copper:    { name: 'Copper · LME 3M', decimals: 0, primary: () => westmetall('LME_Cu_cash'), fallback: () => yahoo('HG=F', (p) => p * LB_PER_TONNE) },
   gold:      { key: 'XAU',   name: 'Gold / oz',     decimals: 2, primary: () => yahoo('GC=F'),  fallback: () => goldApi('XAU') },
   silver:    { key: 'XAG',   name: 'Silver / oz',   decimals: 2, primary: () => yahoo('SI=F'),  fallback: () => goldApi('XAG') },
-  aluminium: { key: 'ALU',   name: 'Aluminium / t', decimals: 0, primary: () => yahoo('ALI=F'), fallback: () => fred('PALUMUSDM') },
+  aluminium: { key: 'ALU',   name: 'Aluminium / t', decimals: 0, primary: () => westmetall('LME_Al_cash'), fallback: () => fred('PALUMUSDM') },
   brent:     { key: 'BRENT', name: 'Brent / bbl',   decimals: 2, primary: () => yahoo('BZ=F'),  fallback: () => fred('DCOILBRENTEU') },
 };
 
