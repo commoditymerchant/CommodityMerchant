@@ -21,11 +21,17 @@ to this repository (no build command, publish directory `.` — see
 `netlify.toml`) would make every push deploy automatically, including the
 daily price updates below.
 
-## Daily prices
+## Prices
 
-`.github/workflows/update-prices.yml` runs `scripts/update-prices.mjs` each
-weekday evening: it fetches prices from Yahoo Finance (falling back to
-gold-api.com and FRED public CSVs), writes `prices.json`, and commits the
-result. The live site only picks these updates up automatically if the
-Netlify project is connected to this repo; with drag-and-drop deploys the
-snapshot is only as fresh as the last upload.
+The homepage loads `prices.json` on every visit, and refreshes gold and
+silver live in the browser on top of it (gold-api.com spot). Copper and
+aluminium are LME official settlements — exchange data with no free
+browser-side feed — so they come from the snapshot file.
+
+`.github/workflows/update-prices.yml` runs `scripts/update-prices.mjs`
+every 2 hours on weekdays: LME copper & aluminium 3-month from Westmetall's
+settlement table, gold/silver/Brent from Yahoo Finance (fallbacks:
+gold-api.com, FRED). It commits `prices.json` when values change and, if
+`NETLIFY_AUTH_TOKEN` + `NETLIFY_SITE_ID` repository secrets are configured,
+deploys the site straight to Netlify. Without those secrets (or a linked
+repo), the live site's snapshot is only as fresh as the last manual deploy.

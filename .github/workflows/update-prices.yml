@@ -2,8 +2,10 @@ name: Update commodity prices
 
 on:
   schedule:
-    # Weekdays at 21:30 UTC, after US/European market close
-    - cron: '30 21 * * 1-5'
+    # Every 2 hours on weekdays. Gold/silver/Brent move intraday via Yahoo;
+    # LME copper & aluminium update once per day when Westmetall publishes
+    # settlements. Commits happen only when a value actually changed.
+    - cron: '17 */2 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -31,5 +33,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add prices.json
-          git commit -m "Update commodity prices ($(date -u +%Y-%m-%d))"
+          git commit -m "Update commodity prices ($(date -u +'%Y-%m-%d %H:%M') UTC)"
           git push
+
+      # Publishes the whole site (including the fresh prices.json) straight to
+      # Netlify — no repo linking required — once two repository secrets exist:
+      #   NETLIFY_AUTH_TOKEN  (Netlify: User settings → Applications → New access token)
+      #   NETLIFY_SITE_ID     (Netlify: Project configuration → General → Project ID)
+      # Until they are set, this step is a no-op and the live site only updates
+      # via a linked repo or a manual deploy.
+      - name: Deploy to Netlify (when credentials configured)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          if [ -z "$NETLIFY_AUTH_TOKEN" ] || [ -z "$NETLIFY_SITE_ID" ]; then
+            echo "Netlify credentials not configured — skipping direct deploy."
+            exit 0
+          fi
+          npx --yes netlify-cli@17 deploy --prod --dir . --site "$NETLIFY_SITE_ID" --message "Automated price update"
