@@ -36,6 +36,15 @@ body { font-family:var(--sans); color:var(--text); display:flex; justify-content
   mask-image:radial-gradient(ellipse at 50% 0%, black 30%, transparent 90%); }
 main { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; }
 .cm { width:76px; height:76px; border-radius:20px; background:var(--grad-btn); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:600; font-size:30px; color:#05060a; }
+    .cm-link { display:block; text-decoration:none; transition:transform .15s; }
+    .cm-link:hover .cm { transform:scale(1.04); }
+    .tophome { display:inline-flex; align-items:center; gap:8px; margin-bottom:30px; padding:9px 18px;
+      border-radius:999px; background:var(--glass); border:1px solid var(--glass-border);
+      font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--text-2); text-decoration:none; transition:border-color .15s, color .15s; }
+    .tophome:hover { border-color:rgba(94,234,212,.4); color:var(--teal); }
+    .tophome .ar { transition:transform .15s; }
+    .tophome:hover .ar { transform:translateX(3px); }
 h1 { margin-top:22px; font-size:30px; font-weight:600; letter-spacing:-.02em; color:var(--text-hi); }
 .hnd { margin-top:8px; font-family:var(--mono); font-size:15px; letter-spacing:.1em; color:var(--text-mute); }
 .tag { margin-top:18px; font-size:17px; line-height:1.6; color:var(--text-2); max-width:420px; }
@@ -54,7 +63,10 @@ a.link.primary { background:linear-gradient(150deg,rgba(99,102,241,.16),rgba(94,
 <div id="tx"></div>
 <div id="page">
   <main>
-    <div class="cm">CM</div>
+    <a class="tophome" href="https://commoditymerchant.net">Visit the main site <span class="ar">&rarr;</span></a>
+    <a class="cm-link" href="https://commoditymerchant.net" aria-label="The Commodity Merchant — home">
+      <div class="cm">CM</div>
+    </a>
     <h1>The Commodity Merchant</h1>
     <div class="hnd">@commoditymch</div>
     <p class="tag">Commodity markets from the inside — 15+ years on the desk. The physical side of the tape, in plain English.</p>
