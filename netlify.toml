@@ -1,3 +1,15 @@
 # Static site — no build step. Publish the repo root.
 [build]
   publish = "."
+
+# The functions directory has to live here rather than being passed on the
+# command line, because two separate things deploy this site:
+#   * cm-tools/letters/publish_site.py, run by hand when a letter goes out
+#   * .github/workflows/update-prices.yml, on a 2-hourly weekday cron
+# Both call `netlify deploy --prod --dir .`, and neither passes --functions. If
+# the directory were only known to one of them, the next price deploy would
+# publish a site with no functions and quietly delete the Gumroad → Meta bridge
+# between sales, which is the kind of failure nobody notices until the campaign
+# numbers are already wrong.
+[functions]
+  directory = "netlify/functions"
