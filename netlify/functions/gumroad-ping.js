@@ -143,16 +143,60 @@ function eventTimeSeconds(saleTimestamp) {
  */
 const PING_STORE = 'gumroad-pings';
 let blobsModule;
-function getPingStore() {
+
+/**
+ * Open the store, or explain precisely why it cannot be opened.
+ *
+ * Returns { store, error } and never throws. The error string is surfaced -
+ * GET returns 500 carrying it, and POST logs it under a marker that is meant
+ * to be searched for. It is deliberately not swallowed into a null store,
+ * because "storage quietly off" is the exact bug this whole change exists to
+ * end: on 5 Sep 2026 the first version of this shipped, passed its tests, and
+ * stored nothing at all, because the tests replaced this module with a mock
+ * and so never once constructed a real store.
+ *
+ * Why explicit credentials: Netlify injects NETLIFY_BLOBS_CONTEXT only for
+ * git-connected builds. This site is deployed with `netlify deploy --dir .`
+ * from a laptop and from the price cron, which injects nothing, so the zero-arg
+ * getStore() throws MissingBlobsEnvironmentError at runtime. Passing siteID and
+ * token from environment variables is the form that actually works here.
+ */
+function openPingStore() {
   if (blobsModule === undefined) {
     try {
       blobsModule = require('@netlify/blobs');
     } catch (err) {
       blobsModule = null;
-      console.log('[gumroad-ping] @netlify/blobs unavailable - storage disabled', { error: err.message });
+      return { store: null, error: `@netlify/blobs is not bundled with this deploy: ${err.message}` };
     }
   }
-  return blobsModule ? blobsModule.getStore(PING_STORE) : null;
+  if (!blobsModule) {
+    return { store: null, error: '@netlify/blobs is not bundled with this deploy' };
+  }
+
+  const siteID = process.env.BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID || process.env.SITE_ID || '';
+  const token = process.env.BLOBS_TOKEN || process.env.NETLIFY_BLOBS_TOKEN || '';
+
+  try {
+    if (siteID && token) {
+      return { store: blobsModule.getStore({ name: PING_STORE, siteID, token }), error: null };
+    }
+    // A git-connected build would give us this for free; keep supporting it so
+    // the function does not break if the deploy method ever changes.
+    if (process.env.NETLIFY_BLOBS_CONTEXT) {
+      return { store: blobsModule.getStore(PING_STORE), error: null };
+    }
+    return {
+      store: null,
+      error:
+        'Blobs is not configured for this deploy. Set BLOBS_SITE_ID and BLOBS_TOKEN ' +
+        'in the Netlify site environment (this site deploys via `netlify deploy`, ' +
+        'which does not inject NETLIFY_BLOBS_CONTEXT). ' +
+        `Currently: siteID=${siteID ? 'set' : 'MISSING'}, token=${token ? 'set' : 'MISSING'}.`,
+    };
+  } catch (err) {
+    return { store: null, error: `${err.name || 'Error'}: ${err.message}` };
+  }
 }
 
 /** ISO first so plain lexicographic key order is chronological order. */
@@ -241,15 +285,35 @@ async function handleGet(event) {
     };
   }
 
-  const store = getPingStore();
+  const { store, error: storeError } = openPingStore();
   if (!store) {
-    return json(503, {
-      error: 'storage unavailable',
-      detail: '@netlify/blobs is not bundled with this deploy, so no pings can be read.',
-    });
+    // 500, not 200-with-an-empty-list. Reporting "0 pings" when the truth is
+    // "storage is broken" is the failure this endpoint exists to prevent.
+    console.log('[gumroad-ping] STORAGE FAILURE (read)', { error: storeError });
+    return json(500, { error: 'storage unavailable', detail: storeError });
   }
 
   const scanCap = 5000;
+
+  // ?health=1 - prove the store can actually be written and read, rather than
+  // inferring it from an empty list. Writes one throwaway key and deletes it.
+  if (q.health === '1' || q.health === 'true') {
+    const probe = `__health__/${new Date().toISOString()}-${crypto.randomBytes(4).toString('hex')}`;
+    try {
+      await store.setJSON(probe, { probe: true, at: new Date().toISOString() });
+      const readBack = await store.get(probe, { type: 'json' });
+      await store.delete(probe);
+      const ok = Boolean(readBack && readBack.probe === true);
+      return json(ok ? 200 : 500, {
+        storage: ok ? 'ok' : 'write succeeded but read-back failed',
+        store: PING_STORE,
+        checked: ['write', 'read', 'delete'],
+      });
+    } catch (err) {
+      console.log('[gumroad-ping] STORAGE FAILURE (health probe)', { error: err.message });
+      return json(500, { storage: 'failing', detail: `${err.name || 'Error'}: ${err.message}` });
+    }
+  }
 
   try {
     if (q.summary === '1' || q.summary === 'true') {
@@ -412,15 +476,29 @@ exports.handler = async (event) => {
   );
 
   // ---- persist, so the log can actually be read back -----------------------
-  // Best-effort by design: every failure path here is swallowed. A storage
-  // problem must never turn into a non-200, because Gumroad retries non-200s
-  // and a retry can double-fire the conversion. The stored record is the same
-  // redacted shape as the log line above - the raw email is still never
-  // written anywhere, only its truncated hash.
+  // A storage problem must never turn into a non-200, because Gumroad retries
+  // non-200s and a retry can double-fire the conversion. So failures are caught
+  // here - but they are LOUD, not silent. Every failure path logs
+  // "STORAGE FAILURE ... PING NOT STORED" with the reason, and GET reports a
+  // broken store as a 500 rather than as an empty list. The first version of
+  // this caught the error and said nothing, so storage was off from the moment
+  // it deployed and no sale revealed it.
+  //
+  // The stored record is the same redacted shape as the log line above - the
+  // raw email is never written anywhere, only its truncated hash.
   const offerCode = get('offer_code') || null;
   try {
-    const store = getPingStore();
-    if (store) {
+    const { store, error: storeError } = openPingStore();
+    if (!store) {
+      // Loud and greppable. The first version of this logged nothing useful
+      // when the store could not be opened, so every ping since deploy was
+      // dropped without a trace. Search Netlify function logs for
+      // "STORAGE FAILURE" to find it.
+      console.log('[gumroad-ping] STORAGE FAILURE (write) - PING NOT STORED', {
+        sale_id: get('sale_id') || null,
+        error: storeError,
+      });
+    } else {
       const receivedAt = new Date().toISOString();
       const record = {
         receivedAt,
@@ -448,7 +526,10 @@ exports.handler = async (event) => {
       await store.setJSON(pingKey(receivedAt, record.sale_id), record);
     }
   } catch (err) {
-    console.log('[gumroad-ping] store write failed (ping still logged)', { error: err.message });
+    console.log('[gumroad-ping] STORAGE FAILURE (write) - PING NOT STORED', {
+      sale_id: get('sale_id') || null,
+      error: `${err.name || 'Error'}: ${err.message}`,
+    });
   }
 
   // ---- forward to Meta, if we ever get a token -----------------------------

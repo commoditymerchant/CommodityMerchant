@@ -13,3 +13,23 @@
 # numbers are already wrong.
 [functions]
   directory = "netlify/functions"
+
+# Printed-URL destinations. The book and the site print commoditymerchant.net
+# paths that are not pages. Without these they 404, and a reader who types what
+# is printed on p53 of the career book lands nowhere.
+#
+# The src tag is site-* rather than career-*, deliberately: a click on a
+# hyperlink inside the book carries src=career-guide, a typed URL carries
+# src=site-guide. Both are attributed; they answer different questions.
+# See strategy/cta-links-canonical.md in the Claude project folder.
+[[redirects]]
+  from = "/guide"
+  to = "https://merchantmind5.gumroad.com/l/mnwiyt?src=site-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/letter"
+  to = "https://commoditymerchant.substack.com"
+  status = 301
+  force = true
