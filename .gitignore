@@ -1,2 +1,5 @@
 # Local Netlify folder
 .netlify
+
+# Installed only so the function bundler can resolve @netlify/blobs
+node_modules

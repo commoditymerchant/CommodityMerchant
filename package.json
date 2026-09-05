@@ -1,0 +1,8 @@
+{
+  "name": "commoditymerchant-site",
+  "private": true,
+  "description": "Static site. This package.json exists only so the Netlify function bundler can resolve @netlify/blobs; there is no build step and netlify.toml sets no build command.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

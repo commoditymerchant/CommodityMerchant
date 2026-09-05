@@ -125,7 +125,182 @@ function eventTimeSeconds(saleTimestamp) {
   return { seconds, source: 'sale_timestamp' };
 }
 
+/* ---------------------------------------------------------------------------
+ * Persistence.
+ *
+ * Until 5 Sep 2026 this function only ever called console.log, so the record of
+ * every ping was a Netlify function log line. Netlify streams those live and
+ * offers no historical query, no export and no retention without a log drain,
+ * which means the campaign-1 pings could not be read back by anyone and are
+ * now gone. Writing them to a blob store fixes that going forward; it cannot
+ * recover what was never stored.
+ *
+ * The require is lazy and guarded on purpose. Both deploy paths - the 2-hourly
+ * price cron and publish_site.py - run `npx netlify-cli deploy` against a tree
+ * with no npm install, so a hard top-level require of a package that is not
+ * there would break the bundle and take the Gumroad bridge down with it. If the
+ * module is missing, storage degrades and POST is completely unaffected.
+ */
+const PING_STORE = 'gumroad-pings';
+let blobsModule;
+function getPingStore() {
+  if (blobsModule === undefined) {
+    try {
+      blobsModule = require('@netlify/blobs');
+    } catch (err) {
+      blobsModule = null;
+      console.log('[gumroad-ping] @netlify/blobs unavailable - storage disabled', { error: err.message });
+    }
+  }
+  return blobsModule ? blobsModule.getStore(PING_STORE) : null;
+}
+
+/** ISO first so plain lexicographic key order is chronological order. */
+function pingKey(receivedAt, saleId) {
+  const suffix = (saleId || 'nosale').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 24) || 'nosale';
+  return `${receivedAt}__${suffix}__${crypto.randomBytes(3).toString('hex')}`;
+}
+
+/**
+ * Read stored pings newest first. Keys sort chronologically, so reverse order
+ * is newest first and we can stop fetching as soon as the page is full rather
+ * than pulling the whole store for a 20-row answer.
+ */
+async function loadPings(store, { limit, tag, scanCap }) {
+  const listed = await store.list();
+  const keys = (listed.blobs || []).map((b) => b.key).sort().reverse().slice(0, scanCap);
+
+  const out = [];
+  for (let i = 0; i < keys.length && out.length < limit; i += 20) {
+    const batch = keys.slice(i, i + 20);
+    const records = await Promise.all(
+      batch.map((k) => store.get(k, { type: 'json' }).catch(() => null))
+    );
+    for (const rec of records) {
+      if (!rec) continue;
+      if (tag && rec.tag !== tag) continue;
+      out.push(rec);
+      if (out.length >= limit) break;
+    }
+  }
+  return { records: out, scanned: keys.length, total: (listed.blobs || []).length };
+}
+
+async function loadAllPings(store, scanCap) {
+  const listed = await store.list();
+  const keys = (listed.blobs || []).map((b) => b.key).sort().reverse().slice(0, scanCap);
+  const out = [];
+  for (let i = 0; i < keys.length; i += 20) {
+    const records = await Promise.all(
+      keys.slice(i, i + 20).map((k) => store.get(k, { type: 'json' }).catch(() => null))
+    );
+    for (const rec of records) if (rec) out.push(rec);
+  }
+  return { records: out, total: (listed.blobs || []).length };
+}
+
+function constantTimeEqual(a, b) {
+  const x = Buffer.from(String(a));
+  const y = Buffer.from(String(b));
+  if (x.length !== y.length) return false;
+  return crypto.timingSafeEqual(x, y);
+}
+
+const json = (statusCode, payload) => ({
+  statusCode,
+  headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
+  body: JSON.stringify(payload, null, 2),
+});
+
+/**
+ * GET: read the log back.
+ *
+ * Auth is mandatory and fails closed. If PING_LOG_TOKEN is unset the endpoint
+ * returns 503 rather than becoming readable by anyone, because the alternative
+ * failure mode - an unset variable silently disabling the check - is the one
+ * that actually happens.
+ */
+async function handleGet(event) {
+  const expected = process.env.PING_LOG_TOKEN || '';
+  if (!expected) {
+    console.log('[gumroad-ping] GET refused: PING_LOG_TOKEN is not set');
+    return json(503, { error: 'not configured', detail: 'PING_LOG_TOKEN is not set on this site.' });
+  }
+
+  const headers = event.headers || {};
+  const auth = headers.authorization || headers.Authorization || '';
+  const bearer = /^Bearer\s+(.+)$/i.exec(auth);
+  const q = event.queryStringParameters || {};
+  const presented = bearer ? bearer[1].trim() : (q.key || '').trim();
+
+  if (!presented || !constantTimeEqual(presented, expected)) {
+    return {
+      statusCode: 401,
+      headers: { 'content-type': 'application/json; charset=utf-8', 'www-authenticate': 'Bearer' },
+      body: JSON.stringify({ error: 'unauthorized' }),
+    };
+  }
+
+  const store = getPingStore();
+  if (!store) {
+    return json(503, {
+      error: 'storage unavailable',
+      detail: '@netlify/blobs is not bundled with this deploy, so no pings can be read.',
+    });
+  }
+
+  const scanCap = 5000;
+
+  try {
+    if (q.summary === '1' || q.summary === 'true') {
+      const { records, total } = await loadAllPings(store, scanCap);
+      const byTag = {};
+      let tests = 0;
+      let testValue = 0;
+      for (const r of records) {
+        if (r.isTest) {
+          tests += 1;
+          testValue += Number(r.value) || 0;
+          continue;
+        }
+        const key = r.tag || '(untagged)';
+        byTag[key] = byTag[key] || { tag: key, count: 0, value: 0, currency: r.currency || null };
+        byTag[key].count += 1;
+        byTag[key].value = Number((byTag[key].value + (Number(r.value) || 0)).toFixed(2));
+      }
+      const tagRows = Object.values(byTag).sort((a, b) => b.value - a.value || b.count - a.count);
+      return json(200, {
+        generatedAt: new Date().toISOString(),
+        storedPings: total,
+        realSales: { count: tagRows.reduce((n, r) => n + r.count, 0), value: Number(tagRows.reduce((n, r) => n + r.value, 0).toFixed(2)) },
+        excludedTestPings: { count: tests, value: Number(testValue.toFixed(2)), note: 'test:"true" or carrying an offer_code - not sales' },
+        byTag: tagRows,
+      });
+    }
+
+    const limit = Math.min(Math.max(Number.parseInt(q.limit, 10) || 100, 1), 1000);
+    const tag = (q.tag || '').trim() || null;
+    const { records, scanned, total } = await loadPings(store, { limit, tag, scanCap });
+    return json(200, {
+      generatedAt: new Date().toISOString(),
+      storedPings: total,
+      scanned,
+      returned: records.length,
+      limit,
+      filter: tag ? { tag } : null,
+      note: 'Newest first. Buyer emails are never stored - emailSha12 is a truncated SHA-256.',
+      pings: records,
+    });
+  } catch (err) {
+    console.log('[gumroad-ping] GET failed', { error: err.message });
+    return json(500, { error: 'read failed', detail: err.message });
+  }
+}
+
 exports.handler = async (event) => {
+  if (event.httpMethod === 'GET') {
+    return handleGet(event);
+  }
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -235,6 +410,46 @@ exports.handler = async (event) => {
         2
       )
   );
+
+  // ---- persist, so the log can actually be read back -----------------------
+  // Best-effort by design: every failure path here is swallowed. A storage
+  // problem must never turn into a non-200, because Gumroad retries non-200s
+  // and a retry can double-fire the conversion. The stored record is the same
+  // redacted shape as the log line above - the raw email is still never
+  // written anywhere, only its truncated hash.
+  const offerCode = get('offer_code') || null;
+  try {
+    const store = getPingStore();
+    if (store) {
+      const receivedAt = new Date().toISOString();
+      const record = {
+        receivedAt,
+        sale_id: get('sale_id') || null,
+        order_number: get('order_number') || null,
+        eventName,
+        product: { permalink, name: get('product_name') || null },
+        rawPrice,
+        currency,
+        value,
+        tag: ad || src || null,
+        src,
+        ad,
+        fbclid: fbclid ? 'present' : 'absent',
+        referrer: get('referrer') || null,
+        country: { sent: countryName || null, iso: countryIso },
+        emailSha12: emailRaw ? sha256Hex(emailRaw.trim().toLowerCase()).slice(0, 12) : null,
+        test: isTest,
+        offer_code: offerCode,
+        // A Gumroad test ping and a discounted "sale" made with a test offer
+        // code are both synthetic. Either one counted as revenue would overstate
+        // the campaign, so the summary excludes both.
+        isTest: isTest || Boolean(offerCode),
+      };
+      await store.setJSON(pingKey(receivedAt, record.sale_id), record);
+    }
+  } catch (err) {
+    console.log('[gumroad-ping] store write failed (ping still logged)', { error: err.message });
+  }
 
   // ---- forward to Meta, if we ever get a token -----------------------------
   const token = process.env.META_CAPI_TOKEN;

@@ -42,6 +42,13 @@ jobs:
       #   NETLIFY_SITE_ID     (Netlify: Project configuration → General → Project ID)
       # Until they are set, this step is a no-op and the live site only updates
       # via a linked repo or a manual deploy.
+      # The Gumroad function requires @netlify/blobs. This checkout has no
+      # node_modules, and `netlify deploy` bundles functions from the local
+      # tree, so without this step the deployed function would lose its ping
+      # storage on every price cron.
+      - name: Install function dependencies
+        run: npm ci --omit=dev
+
       - name: Deploy to Netlify (when credentials configured)
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
