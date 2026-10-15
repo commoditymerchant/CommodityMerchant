@@ -11,15 +11,15 @@
     {
       "key": "XAU",
       "name": "Gold / oz",
-      "px": 4149,
-      "chg": -0.2,
+      "px": 4171.8,
+      "chg": 0.55,
       "decimals": 2
     },
     {
       "key": "XAG",
       "name": "Silver / oz",
-      "px": 57.05,
-      "chg": 0.35,
+      "px": 57.55,
+      "chg": 0.88,
       "decimals": 2
     },
     {
