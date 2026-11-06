@@ -61,6 +61,21 @@ a{color:var(--sky)}
   h1 .g{background:none;color:#0ea5e9;-webkit-text-fill-color:#0ea5e9}
   section{break-inside:auto} .board-wrap,.callout{break-inside:avoid}
   @page{size:A4;margin:16mm 15mm}
+
+ /* print keeps the original light palette - the page went dark on screen only */
+ :root{--ink:#111827;--ink2:#374151;--mut:#6b7280;--line:#e5e7eb;--paper:#fcfcfa;
+--sky:#0ea5e9;--teal:#0d9488;--ind:#4f46e5;--rose:#be123c;--gold:#b45309}
+ body{background:#f3f4f6;font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);
+ -webkit-font-smoothing:antialiased;line-height:1.62}
+ .chip{font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:#fff}
+ h1 .g{background:linear-gradient(100deg,#0d9488,#0ea5e9 45%,#4f46e5);-webkit-background-clip:text;color:transparent}
+ .board-wrap{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px 18px;margin:8px 0 22px}
+ table.board td{font-size:16px;padding:11px 0;border-bottom:1px solid #f1f2f4}
+ .callout{background:#f0fdfa;border:1px solid #99f6e4;border-left:4px solid var(--teal);border-radius:10px;padding:20px 24px;margin:22px 0}
+ .callout.seq{background:#eef2ff;border-color:#c7d2fe;border-left-color:var(--ind)}
+ .cta{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin:34px 0}
+ /* print on white, after the restore */ body{background:#fff}
 }
 </style></head><body><div class="page">
 <div class="chips"><span class="chip">The Merchant's Wrap &middot; No. 013</span><span class="chip">Sunday 11 October 2026</span><span class="chip">Week ending Sat 10 October</span></div>
