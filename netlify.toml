@@ -33,3 +33,9 @@
   to = "https://commoditymerchant.substack.com"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/tfbreaks"
+  to = "https://merchantmind5.gumroad.com/l/tfbreaks?src=site-tfbreaks"
+  status = 301
+  force = true
