@@ -97,6 +97,7 @@ const SYMBOLS = {
 let previous = {};
 try {
   const prev = JSON.parse(readFileSync(OUT, 'utf8'));
+  previous.asOf = prev.asOf ?? null;
   previous.copper = prev.featured;
   for (const q of prev.quotes ?? []) {
     for (const [k, cfg] of Object.entries(SYMBOLS)) if (cfg.key === q.key) previous[k] = q;
@@ -119,7 +120,22 @@ for (const [key, cfg] of Object.entries(SYMBOLS)) {
     } catch (eFallback) {
       console.error(`[${key}] all sources failed: ${eFallback.message}`);
       failures++;
-      if (previous[key]) results[key] = { px: previous[key].px, chg: previous[key].chg };
+      // Carrying the last good value forward is right - a gap is worse than a
+      // slightly old print. Carrying it SILENTLY is not: the top-level asOf is
+      // stamped with today either way, so a dead feed publishes a frozen number
+      // as if it were today's. That is how Brent sat at 104.37 / -9.15% on the
+      // live homepage on 10 Nov 2026 while Yahoo BZ=F said 91.57 and the
+      // publication's own verified figure was 97.52 - nobody reads the Actions
+      // log, and the commit message still says "Update commodity prices".
+      // So mark it, and let the workflow fail the run on any stale quote.
+      if (previous[key]) {
+        results[key] = {
+          px: previous[key].px,
+          chg: previous[key].chg,
+          stale: true,
+          staleSince: previous[key].staleSince ?? previous.asOf ?? null,
+        };
+      }
       continue;
     }
   }
@@ -139,12 +155,36 @@ if (failures === Object.keys(SYMBOLS).length) {
 const out = {
   asOf: new Date().toISOString().slice(0, 10),
   note: 'Indicative levels. Refreshed daily by an automated workflow; gold and silver also refresh live in the browser when the quote feed is reachable.',
-  featured: { name: SYMBOLS.copper.name, px: results.copper.px, chg: results.copper.chg, decimals: SYMBOLS.copper.decimals },
+  featured: {
+    name: SYMBOLS.copper.name, px: results.copper.px, chg: results.copper.chg,
+    decimals: SYMBOLS.copper.decimals,
+    ...(results.copper.stale ? { stale: true, staleSince: results.copper.staleSince } : {}),
+  },
   quotes: ['gold', 'silver', 'aluminium', 'brent']
     .filter((k) => results[k])
-    .map((k) => ({ key: SYMBOLS[k].key, name: SYMBOLS[k].name, px: results[k].px, chg: results[k].chg, decimals: SYMBOLS[k].decimals })),
+    .map((k) => ({
+      key: SYMBOLS[k].key, name: SYMBOLS[k].name, px: results[k].px, chg: results[k].chg,
+      decimals: SYMBOLS[k].decimals,
+      ...(results[k].stale ? { stale: true, staleSince: results[k].staleSince } : {}),
+    })),
 };
+
+// A carried-forward quote must not pass silently. The run still writes and
+// commits, so four good prices are not held hostage to one dead feed - but the
+// job goes red afterwards so the failure is visible to a human.
+const staleKeys = [out.featured, ...out.quotes].filter((q) => q.stale).map((q) => q.name);
 
 writeFileSync(OUT, JSON.stringify(out, null, 2) + '\n');
 console.log(`wrote ${OUT}:`);
 console.log(JSON.stringify(out, null, 2));
+
+// Deliberately exit 0 here. Failing this step would skip the commit, push and
+// deploy, holding four good prices hostage to one dead feed. The workflow's
+// final "Fail if any quote is stale" step reads the written file and reds the
+// job after the data has shipped.
+if (staleKeys.length) {
+  console.error(
+    `\nSTALE: ${staleKeys.join(', ')} - all sources failed, last good value carried ` +
+    `forward and published under asOf ${out.asOf}. Fix the feed or pull the quote.`
+  );
+}
