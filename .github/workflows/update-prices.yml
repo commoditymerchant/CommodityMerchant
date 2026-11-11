@@ -60,20 +60,19 @@ jobs:
           fi
           npx --yes netlify-cli@17 deploy --prod --dir . --site "$NETLIFY_SITE_ID" --message "Automated price update"
 
-      # Runs LAST, on purpose. A symbol whose sources all fail has its last good
-      # value carried forward and stamped with today's asOf, which is how Brent
-      # sat at 104.37 on the live homepage on 10 Nov 2026 while Yahoo said 91.57.
-      # The data still ships - but the job goes red so a human sees it, because
-      # a console.error in a log nobody opens is not a warning.
-      - name: Fail if any quote is stale
+      # Runs LAST, on purpose. A quote that cannot be sourced fresh is withheld
+      # from the site rather than carried forward, so nothing wrong is published
+      # either way - but a missing tile is still a fault, and the job goes red so
+      # a human sees it. A console.error in a log nobody opens is not a warning.
+      - name: Fail if any quote was withheld
         run: |
-          stale=$(node -e "
+          withheld=$(node -e "
             const p = require('./prices.json');
-            const names = [p.featured, ...(p.quotes || [])].filter(q => q.stale).map(q => q.name);
-            if (names.length) console.log(names.join(', '));
+            const w = p.withheld || [];
+            if (w.length) console.log(w.map(q => q.name + ' (' + q.reason + ')').join('; '));
           ")
-          if [ -n "$stale" ]; then
-            echo "::error title=Stale price published::$stale carried forward under asOf $(node -e "console.log(require('./prices.json').asOf)")"
+          if [ -n "$withheld" ]; then
+            echo "::error title=Quote withheld from site::$withheld"
             exit 1
           fi
           echo "All quotes fresh."
