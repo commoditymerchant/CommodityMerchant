@@ -27,8 +27,8 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html,body { background:var(--bg); min-height:100%; }
-body { font-family:var(--sans); color:var(--text); display:flex; justify-content:center; }
-#page { position:relative; width:100%; max-width:560px; padding:64px 28px 60px; overflow:hidden; }
+body { font-family:var(--sans); color:var(--text); }
+#page { position:relative; width:100%; max-width:560px; margin:0 auto; padding:44px 28px 60px; overflow:hidden; }
 #tx { position:fixed; inset:0; pointer-events:none; opacity:.6;
   background-image:linear-gradient(rgba(232,236,244,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(232,236,244,.035) 1px,transparent 1px);
   background-size:72px 72px;
@@ -58,12 +58,70 @@ a.link .s { margin-top:6px; font-size:15px; line-height:1.5; color:var(--text-2)
 a.link.primary { background:linear-gradient(150deg,rgba(99,102,241,.16),rgba(94,234,212,.06) 60%,rgba(232,236,244,.015)); border-color:rgba(94,234,212,.28); }
 .foot { margin-top:48px; font-family:var(--mono); font-size:12px; letter-spacing:.12em; color:var(--text-mute); line-height:1.8; }
 .foot a { color:var(--text-2); text-decoration:none; }
+
+    /* ---- site chrome, to match /, /about, /book and /letters ---- */
+    nav { position:sticky; top:0; z-index:40; display:flex; align-items:center;
+      gap:clamp(10px,3vw,36px); flex-wrap:wrap; padding:14px clamp(18px,4vw,56px);
+      background:rgba(5,6,10,.68); backdrop-filter:blur(18px) saturate(160%);
+      -webkit-backdrop-filter:blur(18px) saturate(160%);
+      border-bottom:1px solid rgba(232,236,244,.07); text-align:left; }
+    .navcm { display:grid; place-items:center; width:30px; height:30px; border-radius:9px;
+      background:var(--grad-btn); color:#05060a; font-family:var(--mono);
+      font-size:13px; font-weight:500; flex:none; }
+    nav .brand { display:flex; align-items:center; gap:11px; margin-right:auto;
+      color:var(--text); text-decoration:none; }
+    nav .brand-name { font-size:15.5px; font-weight:500; letter-spacing:-.01em; white-space:nowrap; }
+    .navlinks { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .navlinks a { padding:8px 16px; border-radius:999px; font-size:13px; font-weight:450;
+      color:var(--text-2); text-decoration:none; transition:background .3s,color .3s; }
+    .navlinks a:hover { color:var(--text-hi); }
+    .nav-cta { padding:9px 18px; border-radius:999px; background:var(--grad-btn);
+      color:#05060a; font-size:13px; font-weight:600; white-space:nowrap;
+      text-decoration:none; transition:transform .3s,box-shadow .3s; }
+    .nav-cta:hover { transform:translateY(-2px); box-shadow:0 14px 34px -14px rgba(94,234,212,.7); }
+
+    footer { border-top:1px solid rgba(232,236,244,.07); background:rgba(5,6,10,.6); text-align:left; }
+    .f-grid { max-width:1360px; margin:0 auto;
+      padding:clamp(40px,6vh,72px) clamp(18px,4vw,56px) 32px; display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:clamp(24px,3.4vw,52px); }
+    .f-desc { margin-top:16px; font-size:13.5px; line-height:1.7; color:var(--text-2); max-width:42ch; }
+    .f-h { font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--text-mute); }
+    .f-list { list-style:none; margin-top:16px; display:flex; flex-direction:column;
+      gap:11px; font-size:13.5px; padding:0; }
+    .f-list a { color:var(--text-2); text-decoration:none; transition:color .3s; }
+    .f-list a:hover { color:var(--teal); }
+    .f-bottom { max-width:1360px; margin:0 auto; padding:0 clamp(18px,4vw,56px) 20px;
+      display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between;
+      font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--text-mute); }
+    .f-legal { max-width:1360px; margin:0 auto; padding:0 clamp(18px,4vw,56px) 40px;
+      font-size:12px; line-height:1.7; color:var(--text-mute); }
+    @media (max-width:620px) {
+      nav { gap:10px; padding:12px clamp(18px,4vw,56px); }
+      nav .brand-name { font-size:14px; }
+      .navlinks { order:3; width:100%; justify-content:center; gap:2px; }
+      .navlinks a { padding:7px 10px; font-size:12px; }
+    }
 </style></head>
 <body>
 <div id="tx"></div>
+<nav>
+  <a class="brand" href="/">
+    <span class="navcm">CM</span>
+    <span class="brand-name">The Commodity Merchant</span>
+  </a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/book">Book</a>
+    <a href="/letters">Newsletter</a>
+    <a href="/#guide">Guide</a>
+  </div>
+  <a class="nav-cta" href="https://commoditymerchant.substack.com" target="_blank" rel="noopener">Subscribe</a>
+</nav>
 <div id="page">
   <main>
-    <a class="tophome" href="https://commoditymerchant.net">Visit the main site <span class="ar">&rarr;</span></a>
     <a class="cm-link" href="https://commoditymerchant.net" aria-label="The Commodity Merchant — home">
       <div class="cm">CM</div>
     </a>
@@ -123,7 +181,48 @@ a.link.primary { background:linear-gradient(150deg,rgba(99,102,241,.16),rgba(94,
       </a>
     </div>
 
-    <p class="foot">© 2026 · <a href="https://commoditymerchant.net">COMMODITYMERCHANT.NET</a><br>COMMENTARY &amp; EDUCATION · NOT INVESTMENT ADVICE</p>
   </main>
 </div>
+
+<footer>
+  <div class="f-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <span class="navcm">CM</span>
+        <span style="font-size:15.5px;font-weight:500;letter-spacing:-.01em">The Commodity Merchant</span>
+      </div>
+      <p class="f-desc">Independent commentary on the physical commodity trade. Energy, base and precious metals &mdash; from the physical side of the trade.</p>
+    </div>
+    <div>
+      <div class="f-h">Explore</div>
+      <ul class="f-list">
+        <li><a href="/about">About</a></li>
+        <li><a href="/book">The Book</a></li>
+        <li><a href="/letters">Newsletter</a></li>
+        <li><a href="/#guide">Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-h">Connect</div>
+      <ul class="f-list">
+        <li><a href="https://www.instagram.com/commoditymerchant/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://x.com/commoditymch" target="_blank" rel="noopener">X / Twitter</a></li>
+        <li><a href="https://www.youtube.com/@commoditymch" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@commoditymerchant" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://commoditymerchant.substack.com" target="_blank" rel="noopener">Substack</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-h">Contact</div>
+      <ul class="f-list">
+        <li><a href="mailto:info@commoditymerchant.net">info@commoditymerchant.net</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>&copy; 2026 The Commodity Merchant</span>
+    <span>commoditymerchant.net</span>
+  </div>
+  <p class="f-legal">The Commodity Merchant publishes commentary and educational content. Nothing on this site constitutes legal, financial, tax, or investment advice.</p>
+</footer>
 </body></html>
