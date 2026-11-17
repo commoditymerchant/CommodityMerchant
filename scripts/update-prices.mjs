@@ -16,7 +16,15 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'prices.json');
 const LB_PER_TONNE = 2204.62262;
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+// An honest client name, not a browser impersonation. Yahoo rate-limits the
+// heavily-shared strings: on 17 Nov 2026 a full desktop-Chrome UA and
+// python-requests both returned 429 Too Many Requests, while a bare
+// 'Mozilla/5.0' and this name both returned 200, repeatedly and across BZ=F,
+// GC=F and SI=F. The 429 was silent, because every Yahoo symbol here has a
+// fallback: Brent fell through to FRED (6 days stale, which the freshness gate
+// then caught and withheld), and gold and silver had been quietly served by
+// gold-api instead of their primary for who knows how long.
+const UA = 'commoditymerchant-price-bot/1.0';
 
 const round = (n, d) => Math.round(n * 10 ** d) / 10 ** d;
 
