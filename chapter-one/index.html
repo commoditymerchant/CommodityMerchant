@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark only">
+<meta name="theme-color" content="#05060a">
+<title>Chapter One, Free · The Commodity Merchant</title>
+<meta name="description" content="Read chapter one of Nobody Is Coming To Make You Rich free: why the price on your screen does not exist, and what the spread really costs you. one. By The Commodity Merchant. On Kindle.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chapter one, free: The spread is the entry fee">
+<meta property="og:description" content="Investing, trading and AI: what your platform, your advisor and your algorithm aren't telling you.">
+<meta property="og:url" content="https://commoditymerchant.net/chapter-one">
+<meta property="og:image" content="https://commoditymerchant.net/book/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chapter one, free: The spread is the entry fee">
+<meta name="twitter:description" content="Investing, trading and AI: what your platform, your advisor and your algorithm aren't telling you.">
+<meta name="twitter:image" content="https://commoditymerchant.net/book/cover.jpg">
+<link rel="canonical" href="https://commoditymerchant.net/chapter-one">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05060a;
+  --text-hi:#f4f7fb; --text:#e8ecf4; --text-2:#9aa4b8; --text-3:#c2cadb; --text-mute:#6b7688;
+  --teal:#5eead4; --indigo:#6366f1;
+  --grad-btn:linear-gradient(120deg,#5eead4,#6366f1);
+  --glass:linear-gradient(160deg,rgba(232,236,244,.06),rgba(232,236,244,.012));
+  --glass-border:rgba(232,236,244,.09);
+  --hairline:rgba(232,236,244,.07);
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  --shell:clamp(18px,4vw,56px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{background:var(--bg);min-height:100%;overflow-x:hidden}
+body{font-family:var(--sans);color:var(--text);font-weight:300;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+
+/* ---------- texture ---------- */
+#tx{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.6;
+  background-image:linear-gradient(rgba(232,236,244,.035) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(232,236,244,.035) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,black 30%,transparent 90%);
+  mask-image:radial-gradient(ellipse at 50% 0%,black 30%,transparent 90%)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;
+  gap:clamp(10px,3vw,36px);flex-wrap:wrap;padding:14px var(--shell);
+  background:rgba(5,6,10,.68);backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hairline)}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto;color:var(--text)}
+.cm{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;
+  background:linear-gradient(140deg,#5eead4,#6366f1);color:#05060a;
+  font-family:var(--mono);font-size:13px;font-weight:500;flex:none}
+.brand-name{font-size:15.5px;font-weight:500;letter-spacing:-.01em;white-space:nowrap}
+.navlinks{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.navlinks a{padding:8px 16px;border-radius:999px;font-size:13px;font-weight:450;
+  color:var(--text-2);transition:background .3s,color .3s}
+.navlinks a:hover{color:var(--text-hi)}
+.navlinks a.active{color:var(--text-hi);background:rgba(232,236,244,.07)}
+.nav-cta{padding:9px 18px;border-radius:999px;background:var(--grad-btn);
+  color:#05060a!important;font-size:13px;font-weight:600;white-space:nowrap;
+  transition:transform .3s,box-shadow .3s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px rgba(94,234,212,.7)}
+
+/* ---------- layout ---------- */
+.wrap{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:0 var(--shell)}
+section{position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--teal)}
+h1,h2,h3{font-weight:500;letter-spacing:-.03em;line-height:1.1;color:var(--text-hi)}
+h1{font-size:clamp(34px,5.6vw,62px);letter-spacing:-.04em}
+h2{font-size:clamp(24px,3.2vw,40px)}
+h3{font-size:clamp(17px,1.6vw,21px);letter-spacing:-.02em;line-height:1.2}
+.grad{background:linear-gradient(120deg,#f4f7fb,#93a4c4);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ---------- buttons ---------- */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,3vw,34px)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:14px;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s,background .35s,border-color .35s}
+.btn-primary{background:var(--grad-btn);color:#05060a}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px -16px rgba(94,234,212,.7)}
+.btn-secondary{border:1px solid rgba(232,236,244,.14);background:rgba(232,236,244,.03);
+  color:var(--text);font-weight:450}
+.btn-secondary:hover{background:rgba(232,236,244,.07);border-color:rgba(94,234,212,.4);
+  transform:translateY(-3px)}
+.btn .ar{font-family:var(--mono)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(44px,7vh,88px) 0 clamp(36px,5vh,64px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(28px,4vw,64px);align-items:center}
+.hero h1{margin-top:20px}
+.hero .sub{margin-top:22px;font-size:clamp(15.5px,1.5vw,18.5px);line-height:1.6;
+  color:var(--text-2);max-width:48ch}
+.note{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-mute)}
+.cover-wrap{position:relative;padding:clamp(16px,2vw,26px);border-radius:24px;
+  border:1px solid var(--glass-border);background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.cover-wrap img{border-radius:10px;width:100%;
+  box-shadow:0 30px 70px -28px rgba(0,0,0,.9)}
+
+/* ---------- lede ---------- */
+.lede{padding:clamp(32px,5vh,64px) 0;border-top:1px solid var(--hairline)}
+.lede .big{font-size:clamp(21px,2.6vw,33px);font-weight:400;line-height:1.3;
+  letter-spacing:-.025em;color:var(--text-hi);max-width:22ch}
+.lede .big span{color:var(--text-mute)}
+.lede-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:clamp(20px,3vw,48px);margin-top:clamp(22px,3vw,36px)}
+.lede-cols p{font-size:15px;line-height:1.7;color:var(--text-2)}
+
+/* ---------- parts ---------- */
+.parts{padding:clamp(32px,5vh,64px) 0;border-top:1px solid var(--hairline)}
+.parts-head{display:flex;align-items:baseline;justify-content:space-between;
+  flex-wrap:wrap;gap:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,264px),1fr));
+  gap:clamp(14px,1.6vw,20px);margin-top:clamp(24px,3vw,38px)}
+.card{padding:clamp(20px,2.2vw,28px);border-radius:20px;border:1px solid var(--glass-border);
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .5s}
+.card:hover{border-color:rgba(94,234,212,.35);transform:translateY(-5px)}
+.card .no{font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal)}
+.card h3{margin:18px 0 0}
+.card p{font-size:13.5px;line-height:1.65;color:var(--text-2);margin-top:12px}
+
+/* ---------- excerpt ---------- */
+.excerpt{padding:clamp(32px,5vh,64px) 0;border-top:1px solid var(--hairline)}
+.excerpt .quote{margin-top:22px;font-size:clamp(17px,1.9vw,23px);line-height:1.55;
+  font-weight:300;color:var(--text-3);max-width:62ch}
+.excerpt .quote strong{color:var(--text-hi);font-weight:500}
+.fig{margin-top:clamp(26px,3.4vw,42px);padding:clamp(14px,1.8vw,24px);border-radius:20px;
+  border:1px solid var(--glass-border);background:var(--glass)}
+.fig img{border-radius:10px}
+.cap{margin-top:14px;font-family:var(--mono);font-size:11.5px;line-height:1.6;
+  color:var(--text-mute)}
+
+/* ---------- not ---------- */
+.notsec{padding:clamp(32px,5vh,64px) 0;border-top:1px solid var(--hairline)}
+.panel{margin-top:22px;padding:clamp(22px,3vw,40px);border-radius:24px;
+  border:1px solid var(--glass-border);background:var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.panel p{font-size:15px;line-height:1.75;color:var(--text-2);max-width:72ch}
+
+/* ---------- subscribe ---------- */
+.sub-band{margin:clamp(32px,5vh,64px) 0;padding:clamp(28px,4vw,56px);border-radius:28px;
+  border:1px solid var(--glass-border);
+  background:radial-gradient(120% 140% at 0% 0%,rgba(94,234,212,.10),transparent 60%),var(--glass);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.sub-band h2{margin-top:16px;max-width:18ch}
+.sub-band p{margin-top:16px;font-size:15px;line-height:1.7;color:var(--text-2);max-width:60ch}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--hairline);
+  background:rgba(5,6,10,.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.f-grid{max-width:1360px;margin:0 auto;
+  padding:clamp(40px,6vh,72px) var(--shell) 32px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
+  gap:clamp(24px,3.4vw,52px)}
+.f-desc{margin-top:16px;font-size:13.5px;line-height:1.7;color:var(--text-2);max-width:42ch}
+.f-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--text-mute)}
+.f-list{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:11px;
+  font-size:13.5px}
+.f-list a{color:var(--text-2);transition:color .3s}
+.f-list a:hover{color:var(--teal)}
+.f-bottom{max-width:1360px;margin:0 auto;padding:0 var(--shell) 20px;
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-mute)}
+.f-legal{max-width:1360px;margin:0 auto;padding:0 var(--shell) 40px;
+  font-size:12px;line-height:1.7;color:var(--text-mute);max-width:90ch}
+
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .cover-wrap{order:-1;max-width:290px;margin:0 auto}
+  .navlinks a{padding:8px 11px;font-size:12.5px}
+}
+/* Keep the nav to two rows on a phone: brand and Subscribe share the top row,
+   the links sit centred beneath. Left to wrap on its own it became three rows
+   and pushed the cover below the fold. */
+@media (max-width:620px){
+  nav{gap:10px;padding:12px var(--shell)}
+  .brand-name{font-size:14px}
+  .navlinks{order:3;width:100%;justify-content:center;gap:2px}
+  .navlinks a{padding:7px 10px;font-size:12px}
+  .hero{padding-top:clamp(26px,4vh,40px)}
+  .cover-wrap{max-width:240px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+
+/* ---------- signup ---------- */
+.signup{margin-top:clamp(22px,3vw,32px);padding:clamp(16px,2vw,22px);border-radius:20px;
+  border:1px solid var(--glass-border);background:var(--glass);max-width:520px}
+.signup iframe{width:100%;height:150px;border:0;background:transparent;display:block}
+.how{margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--text-2);max-width:56ch}
+.inside{padding:clamp(32px,5vh,64px) 0;border-top:1px solid var(--hairline)}
+.inside ul{margin-top:22px;list-style:none;display:grid;gap:14px;max-width:70ch}
+.inside li{padding-left:18px;border-left:2px solid var(--teal);font-size:15px;line-height:1.65;color:var(--text-2)}
+.inside li strong{color:var(--text-hi);font-weight:500}
+</style>
+</head>
+<body>
+<div id="tx"></div>
+
+<nav>
+  <a class="brand" href="/">
+    <span class="cm">CM</span>
+    <span class="brand-name">The Commodity Merchant</span>
+  </a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/book">Book</a>
+    <a href="/letters">Newsletter</a>
+    <a href="/#guide">Guide</a>
+  </div>
+  <a class="nav-cta" href="https://commoditymerchant.substack.com" target="_blank" rel="noopener">Subscribe</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <div class="eyebrow">Free chapter</div>
+    <h1><span class="grad">The spread is<br>the entry fee</span></h1>
+    <p class="sub">Chapter one of <em>Nobody Is Coming To Make You Rich</em>, free. Why the price on your screen does not exist, and what crossing the spread really costs you over a year of trading.</p>
+    <div class="signup">
+      <iframe src="https://commoditymerchant.substack.com/embed" title="Subscribe to The Merchant&rsquo;s Letter" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <p class="how">Enter your email and the chapter arrives in your inbox as a PDF, along with The Merchant&rsquo;s Letter each week. Unsubscribe in one click whenever you like.</p>
+    <div class="note">No affiliate links, here or in the book.</div>
+  </div>
+  <div class="cover-wrap">
+    <img src="/book/cover.jpg" alt="Cover of Nobody Is Coming To Make You Rich by The Commodity Merchant" width="640" height="1024">
+  </div>
+</div></div></section>
+
+<!-- INSIDE -->
+<section class="inside"><div class="wrap">
+  <div class="eyebrow">In the chapter</div>
+  <ul>
+    <li><strong>The price that doesn&rsquo;t exist.</strong> The clean number on your screen is usually the midpoint of two prices, and neither is available to you.</li>
+    <li><strong>Spread multiplied by frequency.</strong> On its own a spread looks like nothing. The chapter shows the arithmetic that makes trading often expensive.</li>
+    <li><strong>When spreads widen.</strong> Spreads are not constant, and they widen exactly when you care most.</li>
+  </ul>
+  <div class="btns">
+    <a class="btn btn-secondary" href="/book">About the book <span class="ar">&rarr;</span></a>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <span class="cm">CM</span>
+        <span style="font-size:15.5px;font-weight:500;letter-spacing:-.01em">The Commodity Merchant</span>
+      </div>
+      <p class="f-desc">Independent commentary on the physical commodity trade. Energy, base and precious metals &mdash; from the physical side of the trade.</p>
+    </div>
+    <div>
+      <div class="f-h">Explore</div>
+      <ul class="f-list">
+        <li><a href="/about">About</a></li>
+        <li><a href="/book">The Book</a></li>
+        <li><a href="/letters">Newsletter</a></li>
+        <li><a href="/#guide">Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-h">Connect</div>
+      <ul class="f-list">
+        <li><a href="https://www.instagram.com/commoditymerchant/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://x.com/commoditymch" target="_blank" rel="noopener">X / Twitter</a></li>
+        <li><a href="https://www.tiktok.com/@commoditymerchant" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://commoditymerchant.substack.com" target="_blank" rel="noopener">Substack</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-h">Contact</div>
+      <ul class="f-list">
+        <li><a href="mailto:info@commoditymerchant.net">info@commoditymerchant.net</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>&copy; 2026 The Commodity Merchant</span>
+    <span>commoditymerchant.net</span>
+  </div>
+  <p class="f-legal">The Commodity Merchant publishes commentary and educational content. Nothing on this site constitutes legal, financial, tax, or investment advice.</p>
+</footer>
+</body></html>
