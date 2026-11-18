@@ -1,45 +1,45 @@
 {
-  "asOf": "2026-11-16",
+  "asOf": "2026-11-17",
   "note": "Indicative levels. Refreshed daily by an automated workflow; gold and silver also refresh live in the browser when the quote feed is reachable.",
   "featured": {
     "name": "Copper · LME 3M",
-    "px": 13305,
-    "chg": -1.77,
+    "px": 13211,
+    "chg": -0.71,
     "decimals": 0,
-    "asOf": "2026-11-16"
+    "asOf": "2026-11-17"
   },
   "quotes": [
     {
       "key": "XAU",
       "name": "Gold / oz",
-      "px": 3851.9,
-      "chg": -0.86,
+      "px": 3774.6,
+      "chg": -2.87,
       "decimals": 2,
-      "asOf": "2026-11-17"
+      "asOf": "2026-11-18"
     },
     {
       "key": "XAG",
       "name": "Silver / oz",
-      "px": 47.29,
-      "chg": -5.37,
+      "px": 45.84,
+      "chg": -6.52,
       "decimals": 2,
-      "asOf": "2026-11-17"
+      "asOf": "2026-11-18"
     },
     {
       "key": "ALU",
       "name": "Aluminium / t",
-      "px": 3020,
-      "chg": 0.07,
+      "px": 2940,
+      "chg": -2.65,
       "decimals": 0,
-      "asOf": "2026-11-16"
+      "asOf": "2026-11-17"
     },
     {
       "key": "BRENT",
       "name": "Brent / bbl",
-      "px": 93.07,
-      "chg": -2.87,
+      "px": 91.61,
+      "chg": -4.41,
       "decimals": 2,
-      "asOf": "2026-11-17"
+      "asOf": "2026-11-18"
     }
   ]
 }
