@@ -12,16 +12,16 @@
     {
       "key": "XAU",
       "name": "Gold / oz",
-      "px": 3571.1,
-      "chg": -7.32,
+      "px": 3525.9,
+      "chg": -8.49,
       "decimals": 2,
       "asOf": "2026-11-20"
     },
     {
       "key": "XAG",
       "name": "Silver / oz",
-      "px": 42.13,
-      "chg": -9.95,
+      "px": 40.93,
+      "chg": -12.51,
       "decimals": 2,
       "asOf": "2026-11-20"
     },
@@ -36,8 +36,8 @@
     {
       "key": "BRENT",
       "name": "Brent / bbl",
-      "px": 89.21,
-      "chg": -3.49,
+      "px": 89.96,
+      "chg": -2.68,
       "decimals": 2,
       "asOf": "2026-11-20"
     }
